@@ -1,19 +1,31 @@
-.btn-sky { background: var(--sky); color: #0f172a; }
-        .btn-whatsapp { background: #25D366; color: white; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; }
-        button:hover { transform: translateY(-2px); filter: brightness(1.1); }
+background: #25D366; 
+            color: white; 
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin-top: 15px;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.2);
+        }
 
+        /* Media Query - Has kiçi telefonlar üçin ýörite sazlamalar */
+        @media (max-width: 380px) {
+            .container { padding: 15px; }
+            h1 { font-size: 1.2rem; }
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <img src="me.jpg" alt="Meylis" class="profile-img">
-        <h1>Meylis</h1>
-        <div class="subtitle">Developer & Solution Maker</div>
+        <div class="profile-header">
+            <img src="me.jpg" alt="Meylis" class="profile-img">
+            <h1>Meylis</h1>
+            <div class="subtitle">Developer & Solution Maker</div>
+        </div>
 
-        <div class="section-box" style="border-top: 4px solid var(--accent);">
-            <h3 class="section-title" style="color: var(--accent);">📊 Market Exchange</h3>
-            
+        <div class="section-box">
+            <h3 class="section-title">📊 Market Exchange</h3>
             <div class="rates-config">
                 <div><label>USD</label><input type="number" id="usdR" value="19.5"></div>
                 <div><label>RUB</label><input type="number" id="rubR" value="0.21"></div>
@@ -22,75 +34,36 @@
 
             <label>Dollar ($)</label>
             <input type="number" id="vUSD" placeholder="0" oninput="fromUSD()">
-
             <label>Rubl (₽)</label>
             <input type="number" id="vRUB" placeholder="0" oninput="fromRUB()">
-
             <label>Türkmen Manady (TMT)</label>
             <input type="number" id="vTMT" placeholder="0" oninput="fromTMT()">
-
             <label>Türk Lirasy (₺)</label>
             <input type="number" id="vTRY" placeholder="0" oninput="fromTRY()">
         </div>
 
-        <div class="section-box" style="border-top: 4px solid var(--sky);">
+        <div class="section-box" style="border-top-color: var(--sky);">
             <h3 class="section-title" style="color: var(--sky);">📝 Daily Plans</h3>
             <div style="display: flex; gap: 8px;">
                 <input type="text" id="taskInp" placeholder="New task..." style="margin-bottom:0;">
                 <button onclick="addTask()" class="btn-sky" style="width: 80px;">Add</button>
             </div>
-            <ul id="taskList" class="task-list" style="margin-top: 15px;"></ul>
+            <ul id="taskList" style="list-style: none; padding: 0; margin-top: 15px;"></ul>
         </div>
 
-        <a href="https://wa.me/79509458986" class="btn-whatsapp button" target="_blank" style="border-radius: 12px; padding: 12px; font-weight: bold;">
+        <a href="https://wa.me/79509458986" class="btn-whatsapp button" target="_blank" style="border-radius: 10px; padding: 12px; font-weight: bold;">
             💬 Chat on WhatsApp
         </a>
     </div>
 
     <script>
-        // Market Logic
-        function getR() {
-            return { u: +document.getElementById('usdR').value, r: +document.getElementById('rubR').value, t: +document.getElementById('tryR').value };
-        }
-
-        function fromTMT() {
-            const k = getR(), v = +document.getElementById('vTMT').value;
-            document.getElementById('vUSD').value = (v / k.u).toFixed(2);
-            document.getElementById('vRUB').value = (v / k.r).toFixed(2);
-            document.getElementById('vTRY').value = (v / k.t).toFixed(2);
-        }
-
-        function fromUSD() {
-            const k = getR(), v = +document.getElementById('vUSD').value, tmt = v * k.u;
-            document.getElementById('vTMT').value = tmt.toFixed(2);
-            document.getElementById('vRUB').value = (tmt / k.r).toFixed(2);
-            document.getElementById('vTRY').value = (tmt / k.t).toFixed(2);
-        }
-
-        function fromRUB() {
-            const k = getR(), v = +document.getElementById('vRUB').value, tmt = v * k.r;
-            document.getElementById('vTMT').value = tmt.toFixed(2);
-            document.getElementById('vUSD').value = (tmt / k.u).toFixed(2);
-            document.getElementById('vTRY').value = (tmt / k.t).toFixed(2);
-        }
-
-        function fromTRY() {
-            const k = getR(), v = +document.getElementById('vTRY').value, tmt = v * k.t;
-            document.getElementById('vTMT').value = tmt.toFixed(2);
-            document.getElementById('vUSD').value = (tmt / k.u).toFixed(2);
-            document.getElementById('vRUB').value = (tmt / k.r).toFixed(2);
-        }
-        // To-Do Logic
-        function addTask() {
-            const inp = document.getElementById('taskInp');
-            if (!inp.value) return;
-            const li = document.createElement('li');
-            li.className = 'task-item';
-            li.innerHTML = <span>${inp.value}</span>;
-            li.onclick = function() { this.classList.toggle('done'); };
-            document.getElementById('taskList').appendChild(li);
-            inp.value = '';
-        }
+        // (Hasaplama kody öňki ýaly galýar)
+        function getR() { return { u: +document.getElementById('usdR').value, r: +document.getElementById('rubR').value, t: +document.getElementById('tryR').value }; }
+        function fromTMT() { const k = getR(), v = +document.getElementById('vTMT').value; document.getElementById('vUSD').value = (v / k.u).toFixed(2); document.getElementById('vRUB').value = (v / k.r).toFixed(2); document.getElementById('vTRY').value = (v / k.t).toFixed(2); }
+        function fromUSD() { const k = getR(), v = +document.getElementById('vUSD').value, tmt = v * k.u; document.getElementById('vTMT').value = tmt.toFixed(2); document.getElementById('vRUB').value = (tmt / k.r).toFixed(2); document.getElementById('vTRY').value = (tmt / k.t).toFixed(2); }
+        function fromRUB() { const k = getR(), v = +document.getElementById('vRUB').value, tmt = v * k.r; document.getElementById('vTMT').value = tmt.toFixed(2); document.getElementById('vUSD').value = (tmt / k.u).toFixed(2); document.getElementById('vTRY').value = (tmt / k.t).toFixed(2); }
+        function fromTRY() { const k = getR(), v = +document.getElementById('vTRY').value, tmt = v * k.t; document.getElementById('vTMT').value = tmt.toFixed(2); document.getElementById('vUSD').value = (tmt / k.u).toFixed(2); document.getElementById('vRUB').value = (tmt / k.r).toFixed(2); }
+        function addTask() { const inp = document.getElementById('taskInp'); if (!inp.value) return; const li = document.createElement('li'); li.className = 'task-item'; li.innerHTML = <span>${inp.value}</span>; li.onclick = function() { this.style.textDecoration = 'line-through'; this.style.opacity = '0.5'; }; document.getElementById('taskList').appendChild(li); inp.value = ''; }
     </script>
 </body>
 </html>

@@ -71,7 +71,46 @@
         button:hover { background: #00cc6e; opacity: 0.9; }
         .res-text { margin-top: 12px; font-weight: 600; color: #00ff88; min-height: 20px; }
         .divider { border-top: 1px dashed #475569; margin: 20px 0; }
+<div class="converter-box" style="background: #1e293b; border-color: #38bdf8;">
+    <h3 style="color: #38bdf8; margin-top: 0;">My Tasks</h3>
+    <input type="text" id="taskInput" placeholder="Add a new task..." style="width: 70%;">
+    <button onclick="addTask()" style="background: #38bdf8;">Add</button>
+    
+    <ul id="taskList" style="list-style: none; padding: 0; text-align: left; margin-top: 20px;">
+        </ul>
+</div>
 
+<script>
+    function addTask() {
+        const input = document.getElementById('taskInput');
+        const taskText = input.value;
+        
+        if (taskText === '') {
+            alert("Please write something!");
+            return;
+        }
+
+        const ul = document.getElementById('taskList');
+        const li = document.createElement('li');
+        
+        // Task design
+        li.style.background = "#334155";
+        li.style.padding = "10px";
+        li.style.borderRadius = "8px";
+        li.style.marginBottom = "8px";
+        li.style.cursor = "pointer";
+        li.innerHTML = taskText;
+
+        // Click to complete task
+        li.onclick = function() {
+            this.style.textDecoration = "line-through";
+            this.style.opacity = "0.5";
+        };
+
+        ul.appendChild(li);
+        input.value = ''; // Clear input
+    }
+</script>
         /* Contact Button */
         .whatsapp-btn {
             background: #25D366;

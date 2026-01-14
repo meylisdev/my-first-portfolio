@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meylisdev | Portfolio</title>
+    <title>Meylisdev | Portfolio & Tools</title>
     <style>
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: #0f172a;
             color: #f8fafc;
             display: flex;
@@ -26,71 +26,89 @@
             max-width: 450px;
             width: 100%;
         }
-        .badge {
-            display: inline-block;
-            background: rgba(56, 189, 248, 0.1);
-            color: #38bdf8;
-            padding: 6px 16px;
-            border-radius: 99px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            border: 1px solid rgba(56, 189, 248, 0.3);
-        }
-        h1 { font-size: 2.2rem; margin: 10px 0; color: #ffffff; }
-        p { font-size: 1rem; color: #94a3b8; line-height: 1.6; }
+        h1 { color: #ffffff; margin-bottom: 5px; }
+        .subtitle { color: #38bdf8; font-weight: 600; margin-bottom: 20px; }
         
-        .skills {
-            margin: 25px 0;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .skill-tag {
+        /* Converter Styling */
+        .converter-box {
             background: #334155;
-            padding: 5px 12px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 1px solid #475569;
         }
-        
-        .links {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
+        input {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #475569;
+            width: 70%;
+            background: #1e293b;
+            color: white;
+            margin-bottom: 10px;
+            outline: none;
         }
-        .links a {
-            color: #38bdf8;
-            text-decoration: none;
-            font-weight: 600;
+        button {
+            padding: 12px 24px;
+            background: #00ff88;
+            border: none;
+            border-radius: 8px;
+            color: #0f172a;
+            font-weight: bold;
+            cursor: pointer;
             transition: 0.3s;
         }
-        .links a:hover {
-            color: #00ff88;
-            text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+        button:hover { background: #00cc6e; transform: translateY(-2px); }
+        #result { margin-top: 15px; font-weight: 600; color: #00ff88; }
+        
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 0.9rem;
         }
+        .footer-links a:hover { color: #38bdf8; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="badge">Available for Projects</div>
-        <h1>Meylis</h1>
-        <p><strong>Junior Front-End Developer</strong></p>
-        <p>I am on a journey to build modern, responsive, and user-friendly web applications.</p>
-        
-        <div class="skills">
-            <span class="skill-tag">HTML5</span>
-            <span class="skill-tag">CSS3</span>
-            <span class="skill-tag">GitHub</span>
-            <span class="skill-tag">VS Code</span>
-        </div>
 
-        <div class="links">
+    <div class="container">
+        <h1>Meylis</h1>
+        <div class="subtitle">Junior Front-End Developer</div>
+        
+        <p>Welcome to my first interactive project!</p>
+
+        <div class="converter-box">
+            <h3 style="margin-top:0;">Unit Converter</h3>
+            <p style="font-size: 0.8rem; color: #94a3b8;">Convert Centimeters to Inches</p>
+            
+            <input type="number" id="cmInput" placeholder="Enter CM value">
+            <br>
+            <button onclick="convert()">Convert Now</button>
+            
+            <p id="result">Result will appear here</p>
+        </div>
+        <div class="footer-links">
             <a href="https://github.com/meylisdev" target="_blank">GitHub</a>
-            <a href="mailto:your-email@example.com">Email Me</a>
+            <a href="mailto:your-email@example.com">Contact</a>
         </div>
     </div>
+
+    <script>
+        function convert() {
+            // Get input value
+            const cm = document.getElementById('cmInput').value;
+            
+            // Calculation: 1 cm = 0.3937 inches
+            const inches = (cm * 0.3937).toFixed(2);
+            
+            // Display result
+            if (cm > 0) {
+                document.getElementById('result').innerHTML = cm + " cm = " + inches + " inches";
+            } else {
+                document.getElementById('result').innerHTML = "Please enter a valid number";
+            }
+        }
+    </script>
+
 </body>
 </html>

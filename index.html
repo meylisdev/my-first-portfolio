@@ -3,192 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bazar Nyrhy | TMT</title>
+    <title>Bazar Nyrhy | RU-TM</title>
     <style>
         * { box-sizing: border-box; transition: 0.3s; }
         
         body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: #064e3b; /* Goýy ýaşyl (Baýdak reňki) */
-            color: white; 
+            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #064e3b 0%, #1e293b 100%); 
             margin: 0; 
             padding: 15px;
             display: flex;
             justify-content: center;
+            min-height: 100vh;
         }
 
         .app-card {
             width: 100%;
-            max-width: 420px;
+            max-width: 400px;
             background: #ffffff;
-            border-radius: 25px;
-            padding: 20px;
-            color: #1f2937;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            text-align: center;
+            border-radius: 35px;
+            padding: 30px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+            align-self: center;
         }
 
-        /* BAÝDAK BÖLÜMI */
-        .flag-box {
-            width: 100px;
-            height: 60px;
-            margin: 0 auto 15px;
-            background-color: #00732f;
-            border-radius: 8px;
-            border: 2px solid #f97316; /* Altyn sary çyzyk */
+        /* BAÝDAKLAR BÖLÜMI */
+        .flags-wrapper {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            justify-content: space-evenly;
+            margin-bottom: 25px;
         }
 
-        h2 { margin: 0; color: #064e3b; font-size: 22px; }
-        .date-text { font-size: 12px; color: #6b7280; margin-bottom: 20px; }
+        .flag {
+            width: 80px;
+            height: 50px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 1px solid #eee;
+        }
 
-        /* KURSLARY SAZLAMAK */
-        .admin-box {
-            background: #f3f4f6;
+        .vs-text {
+            font-weight: 900;
+            color: #d1d5db;
+            font-size: 18px;
+        }
+
+        h2 { 
+            text-align: center;
+            margin: 0 0 25px 0; 
+            color: #1e293b; 
+            font-size: 24px; 
+            letter-spacing: -1px;
+        }
+
+        /* ADMIN SECTION */
+        .admin-panel {
+            background: #f8fafc;
             padding: 15px;
-            border-radius: 15px;
-            margin-bottom: 20px;
+            border-radius: 20px;
+            margin-bottom: 25px;
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
+            gap: 8px;
+            border: 1px solid #f1f5f9;
         }
 
-        .admin-box div label { font-size: 10px; font-weight: bold; color: #374151; display: block; margin-bottom: 5px; }
-        .admin-box input { 
+        .admin-panel label { font-size: 10px; font-weight: 800; color: #64748b; text-transform: uppercase; }
+        .admin-panel input { 
             width: 100%; 
-            border: 1px solid #d1d5db; 
+            border: 1px solid #e2e8f0; 
             padding: 8px; 
-            border-radius: 8px; 
+            border-radius: 10px; 
             text-align: center; 
             font-weight: bold;
             color: #064e3b;
         }
 
-        /* ESASY HASAPLAÝJY */
-        .input-group {
-            text-align: left;
+        /* INPUTS */
+        .currency-box {
             margin-bottom: 15px;
-            background: #f9fafb;
-            padding: 12px;
-            border-radius: 15px;
-            border: 1px solid #e5e7eb;
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 20px;
+            border: 2px solid #f1f5f9;
         }
 
-        .input-group label { 
-            font-size: 13px; 
-            font-weight: 600; 
-            color: #4b5563; 
+        .currency-box:focus-within {
+            border-color: #10b981;
+            transform: translateY(-2px);
+        }
+
+        .currency-box label { 
+            font-size: 12px; 
+            font-weight: 700; 
+            color: #94a3b8; 
             display: flex; 
             align-items: center; 
-            gap: 8px; 
-            margin-bottom: 8px;
+            gap: 8px;
         }
 
-        .input-group input {
+        .currency-box input {
             width: 100%;
             border: none;
             background: transparent;
-            font-size: 20px;
-            font-weight: bold;
-            color: #111827;
+            font-size: 24px;
+            font-weight: 800;
+            color: #1e293b;
             outline: none;
-            padding: 5px 0;
+            padding-top: 5px;
         }
 
-        .input-group:focus-within {
-            border-color: #10b981;
-            background: #ecfdf5;
-        }
-
-        /* WHATSAPP DÜWME */
         .btn-wa {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
             background: #25D366;
             color: white;
             text-decoration: none;
-            padding: 15px;
-            border-radius: 15px;
+            padding: 18px;
+            border-radius: 20px;
             font-weight: bold;
-            margin-top: 10px;
             font-size: 16px;
+            margin-top: 15px;
         }
-
-        .btn-wa:active { transform: scale(0.95); }
-
     </style>
 </head>
 <body>
 
     <div class="app-card">
-        <div class="flag-box">🌙⭐</div>
-        <h2>Bazar Nyrhy (TMT)</h2>
-        <p class="date-text">Türkmenistan üçin ýörite taýýarlandy</p>
-
-        <div class="admin-box">
-            <div><label>USD Kurs</label><input type="number" id="rUSD" value="19.50" step="0.1" oninput="updateAll()"></div>
-            <div><label>RUB Kurs</label><input type="number" id="rRUB" value="0.21" step="0.01" oninput="updateAll()"></div>
-            <div><label>TRY Kurs</label><input type="number" id="rTRY" value="0.65" step="0.01" oninput="updateAll()"></div>
+        <div class="flags-wrapper">
+            <div class="flag">
+                <svg viewBox="0 0 9 6">
+                    <rect width="9" height="2" fill="#fff"/>
+                    <rect width="9" height="2" y="2" fill="#0039a6"/>
+                    <rect width="9" height="2" y="4" fill="#d52b1e"/>
+                </svg>
+            </div>
+            
+            <div class="vs-text">&</div>
+            <div class="flag">
+                <svg viewBox="0 0 30 20">
+                    <rect width="30" height="20" fill="#00732f"/>
+                    <rect width="5" height="20" x="3" fill="#cc1d2a"/>
+                    <circle cx="12" cy="6" r="4" fill="#fff"/>
+                    <circle cx="13.5" cy="6" r="4" fill="#00732f"/>
+                    <path d="M12,3.5l.4,1.2h1.2l-1,.8.4,1.2-1-.8-1,.8.4-1.2-1-.8h1.2Z" fill="#fff"/>
+                </svg>
+            </div>
         </div>
 
-        <div class="input-group">
-            <label>🇺🇸 Dollar ($)</label>
-            <input type="number" id="iUSD" placeholder="0.00" oninput="calc('USD')">
+        <h2>Bazar Nyrhy</h2>
+
+        <div class="admin-panel">
+            <div><label>USD Kurs</label><input type="number" id="rUSD" value="19.50" step="0.1" oninput="calc('TMT')"></div>
+            <div><label>RUB Kurs</label><input type="number" id="rRUB" value="0.21" step="0.01" oninput="calc('TMT')"></div>
+            <div><label>TRY Kurs</label><input type="number" id="rTRY" value="0.65" step="0.01" oninput="calc('TMT')"></div>
         </div>
 
-        <div class="input-group">
-            <label>🇷🇺 Rubl (₽)</label>
-            <input type="number" id="iRUB" placeholder="0.00" oninput="calc('RUB')">
+        <div class="currency-box">
+            <label>🇷🇺 RUBL (₽)</label>
+            <input type="number" id="iRUB" placeholder="0" oninput="calc('RUB')">
         </div>
 
-        <div class="input-group" style="background: #ecfdf5; border-color: #10b981;">
-            <label>🇹🇲 Türkmen Manady (TMT)</label>
-            <input type="number" id="iTMT" placeholder="0.00" oninput="calc('TMT')">
+        <div class="currency-box" style="background: #f0fdf4; border-color: #10b981;">
+            <label style="color: #10b981;">🇹🇲 MANAT (TMT)</label>
+            <input type="number" id="iTMT" placeholder="0" oninput="calc('TMT')">
         </div>
 
-        <div class="input-group">
-            <label>🇹🇷 Türk Lirasy (₺)</label>
-            <input type="number" id="iTRY" placeholder="0.00" oninput="calc('TRY')">
+        <div class="currency-box">
+            <label>🇺🇸 DOLLAR ($)</label>
+            <input type="number" id="iUSD" placeholder="0" oninput="calc('USD')">
         </div>
 
-        <a href="https://wa.me/79509458986" class="btn-wa">
-            <span>💬 WhatsApp-da habarlaş</span>
+        <div class="currency-box">
+            <label>🇹🇷 LIRA (₺)</label>
+            <input type="number" id="iTRY" placeholder="0" oninput="calc('TRY')">
+        </div>
+
+        <a href="https://wa.me/79XXXXXXXXX" class="btn-wa">
+            Habarlaşmak
         </a>
     </div>
 
     <script>
-        function updateAll() {
-            // Kurslar üýtgän wagty hasaplamany täzeleýär
-            calc('TMT');
-        }
-
         function calc(type) {
             const rUSD = parseFloat(document.getElementById('rUSD').value) || 0;
             const rRUB = parseFloat(document.getElementById('rRUB').value) || 0;
             const rTRY = parseFloat(document.getElementById('rTRY').value) || 0;
             
-            const iUSD = document.getElementById('iUSD');
-            const iRUB = document.getElementById('iRUB');
-            const iTMT = document.getElementById('iTMT');
-            const iTRY = document.getElementById('iTRY');
+            const iUSD = document.getElementById('iUSD'), iRUB = document.getElementById('iTMT'), iTRY = document.getElementById('iTRY');
 
-            let baseTMT = 0;
+            let tmt = 0;
+            if(type === 'TMT') tmt = parseFloat(iTMT.value) || 0;
+            else if(type === 'USD') tmt = (parseFloat(iUSD.value) || 0) * rUSD;
+            else if(type === 'RUB') tmt = (parseFloat(iRUB.value) || 0) * rRUB;
+            else if(type === 'TRY') tmt = (parseFloat(iTRY.value) || 0) * rTRY;
 
-            if(type === 'TMT') baseTMT = parseFloat(iTMT.value) || 0;
-            else if(type === 'USD') baseTMT = (parseFloat(iUSD.value) || 0) * rUSD;
-            else if(type === 'RUB') baseTMT = (parseFloat(iRUB.value) || 0) * rRUB;
-            else if(type === 'TRY') baseTMT = (parseFloat(iTRY.value) || 0) * rTRY;
-
-            if(type !== 'TMT') iTMT.value = baseTMT ? baseTMT.toFixed(2) : "";
-            if(type !== 'USD') iUSD.value = baseTMT ? (baseTMT / rUSD).toFixed(2) : "";
-            if(type !== 'RUB') iRUB.value = baseTMT ? (baseTMT / rRUB).toFixed(2) : "";
-            if(type !== 'TRY') iTRY.value = baseTMT ? (baseTMT / rTRY).toFixed(2) : "";
+            if(type !== 'TMT') iTMT.value = tmt ? tmt.toFixed(2) : "";
+            if(type !== 'USD') iUSD.value = tmt ? (tmt / rUSD).toFixed(2) : "";
+            if(type !== 'RUB') iRUB.value = tmt ? (tmt / rRUB).toFixed(2) : "";
+            if(type !== 'TRY') iTRY.value = tmt ? (tmt / rTRY).toFixed(2) : "";
         }
     </script>
 </body>

@@ -3,149 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meylisdev | Junior Developer</title>
+    <title>Meylisdev | Full Stack Portfolio</title>
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            text-align: center;
-            border: 1px solid #334155;
-            padding: 40px;
-            border-radius: 24px;
-            background-color: #1e293b;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            max-width: 450px;
-            width: 100%;
-        }
-        .profile-img {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #00ff88;
-            margin-bottom: 15px;
-            transition: 0.4s;
-        }
-        .profile-img:hover { transform: scale(1.05); }
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .container { text-align: center; border: 1px solid #334155; padding: 30px; border-radius: 24px; background-color: #1e293b; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); max-width: 450px; width: 100%; }
+        .profile-img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #00ff88; margin-bottom: 10px; }
+        h1 { margin: 5px 0; font-size: 1.8rem; }
+        .subtitle { color: #38bdf8; font-weight: 600; margin-bottom: 20px; font-size: 0.9rem; }
         
-        h1 { color: #ffffff; margin: 10px 0; }
-        .subtitle { color: #38bdf8; font-weight: 600; margin-bottom: 20px; }
-
-        /* Converter Styling */
-        .converter-box {
-            background: #334155;
-            padding: 20px;
-            border-radius: 15px;
-            margin: 25px 0;
-            border: 1px solid #475569;
-        }
-        input {
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #475569;
-            width: 80%;
-            background: #1e293b;
-            color: white;
-            margin-bottom: 12px;
-            outline: none;
-        }
-        button {
-            padding: 10px 22px;
-            background: #00ff88;
-            border: none;
-            border-radius: 8px;
-            color: #0f172a;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        button:hover { background: #00cc6e; opacity: 0.9; }
-        .res-text { margin-top: 12px; font-weight: 600; color: #00ff88; min-height: 20px; }
-        .divider { border-top: 1px dashed #475569; margin: 20px 0; }
-<div class="converter-box" style="background: #1e293b; border-color: #38bdf8;">
-    <h3 style="color: #38bdf8; margin-top: 0;">My Tasks</h3>
-    <input type="text" id="taskInput" placeholder="Add a new task..." style="width: 70%;">
-    <button onclick="addTask()" style="background: #38bdf8;">Add</button>
-    
-    <ul id="taskList" style="list-style: none; padding: 0; text-align: left; margin-top: 20px;">
-        </ul>
-</div>
-
-<script>
-    function addTask() {
-        const input = document.getElementById('taskInput');
-        const taskText = input.value;
+        .box { background: #334155; padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #475569; }
+        input { padding: 10px; border-radius: 8px; border: 1px solid #475569; width: 75%; background: #1e293b; color: white; margin-bottom: 10px; outline: none; }
+        button { padding: 10px 18px; background: #00ff88; border: none; border-radius: 8px; color: #0f172a; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { transform: scale(1.05); }
         
-        if (taskText === '') {
-            alert("Please write something!");
-            return;
-        }
+        /* To-Do List Styling */
+        #taskList { list-style: none; padding: 0; margin-top: 15px; }
+        .task-item { background: #1e293b; padding: 10px; border-radius: 8px; margin-bottom: 8px; text-align: left; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #38bdf8; cursor: pointer; }
+        .completed { text-decoration: line-through; opacity: 0.5; border-left-color: #475569; }
 
-        const ul = document.getElementById('taskList');
-        const li = document.createElement('li');
-        
-        // Task design
-        li.style.background = "#334155";
-        li.style.padding = "10px";
-        li.style.borderRadius = "8px";
-        li.style.marginBottom = "8px";
-        li.style.cursor = "pointer";
-        li.innerHTML = taskText;
-
-        // Click to complete task
-        li.onclick = function() {
-            this.style.textDecoration = "line-through";
-            this.style.opacity = "0.5";
-        };
-
-        ul.appendChild(li);
-        input.value = ''; // Clear input
-    }
-</script>
-        /* Contact Button */
-        .whatsapp-btn {
-            background: #25D366;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 20px;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-        }
-        .whatsapp-btn:hover { background: #1ebe57; transform: translateY(-3px); }
+        .whatsapp-btn { background: #25D366; color: white; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; display: inline-block; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); margin-top: 10px; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <img src="me.jpg" alt="Meylis Profile" class="profile-img">
+        <img src="me.jpg" alt="Meylis" class="profile-img">
         <h1>Meylis</h1>
         <div class="subtitle">Junior Front-End Developer</div>
 
-        <div class="converter-box">
-            <h3 style="margin-top:0;">Unit Converter</h3>
-            
+        <div class="box">
+            <h4 style="margin-top:0;">Unit Converter (CM to IN)</h4>
             <input type="number" id="cmInput" placeholder="Enter CM">
-            <button onclick="convertCM()">Convert to Inch</button>
-            <p id="cmResult" class="res-text"></p>
+            <button onclick="convert()">Convert</button>
+            <p id="res" style="color:#00ff88; margin-top:10px; font-weight:bold;"></p>
+        </div>
 
-            <div class="divider"></div>
-
-            <input type="number" id="kmInput" placeholder="Enter KM">
-            <button onclick="convertKM()" style="background: #38bdf8;">Convert to Mile</button>
-            <p id="kmResult" class="res-text" style="color: #38bdf8;"></p>
+        <div class="box" style="border-color: #38bdf8;">
+            <h4 style="margin-top:0; color: #38bdf8;">My Daily Tasks</h4>
+            <input type="text" id="taskInput" placeholder="What is your plan?">
+            <button onclick="addTask()" style="background: #38bdf8;">Add</button>
+            <ul id="taskList"></ul>
         </div>
 
         <a href="https://wa.me/79509458986" class="whatsapp-btn" target="_blank">
@@ -154,24 +51,30 @@
     </div>
 
     <script>
-        function convertCM() {
+        // Converter Logic
+        function convert() {
             const cm = document.getElementById('cmInput').value;
-            const inches = (cm * 0.3937).toFixed(2);
-            if (cm > 0) {
-                document.getElementById('cmResult').innerHTML = cm + " cm = " + inches + " in";
-            } else {
-                document.getElementById('cmResult').innerHTML = "Enter a valid number";
+            if(cm > 0) {
+                document.getElementById('res').innerText = cm + " cm = " + (cm * 0.3937).toFixed(2) + " in";
             }
         }
 
-        function convertKM() {
-            const km = document.getElementById('kmInput').value;
-            const miles = (km * 0.6213).toFixed(2);
-            if (km > 0) {
-                document.getElementById('kmResult').innerHTML = km + " km = " + miles + " mi";
-            } else {
-                document.getElementById('kmResult').innerHTML = "Enter a valid number";
-            }
+        // To-Do List Logic
+        function addTask() {
+            const input = document.getElementById('taskInput');
+            if (input.value === '') return;
+
+            const ul = document.getElementById('taskList');
+            const li = document.createElement('li');
+            li.className = 'task-item';
+            li.innerHTML = input.value;
+            
+            li.onclick = function() {
+                this.classList.toggle('completed');
+            };
+
+            ul.appendChild(li);
+            input.value = '';
         }
     </script>
 

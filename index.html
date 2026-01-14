@@ -3,128 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Milli Super App | v9.0</title>
+    <title>Milli Super App | v9.0 FINAL</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #10b981; --bg: #f4f7f6; --dark: #0f172a; --white: #ffffff; }
+        :root { --primary: #10b981; --bg: #f4f7f6; --dark: #0f172a; --white: #ffffff; --accent: #3b82f6; }
         * { box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background: var(--bg); margin: 0; padding: 0; color: var(--dark); overflow-x: hidden; }
 
-        /* HEADER & PAGES */
-        header { background: var(--dark); color: white; padding: 50px 20px 25px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; position: sticky; top: 0; z-index: 100; }
+        /* HEADER & NAVIGATION */
+        header { background: var(--dark); color: white; padding: 50px 20px 25px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .content { padding: 20px 15px 120px; max-width: 500px; margin: 0 auto; }
         .page { display: none; }
-        .page.active { display: block; animation: fadeIn 0.3s ease; }
+        .page.active { display: block; animation: fadeIn 0.3s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* CARDS & CATEGORIES */
-        .card { background: var(--white); border-radius: 20px; padding: 18px; margin-bottom: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); border: 1px solid #f1f5f9; }
+        /* CARDS & COMPONENTS */
+        .card { background: var(--white); border-radius: 25px; padding: 20px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); border: 1px solid #edf2f7; }
+        .nagt-box { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border-radius: 25px; padding: 20px; margin-bottom: 20px; }
+        
+        /* CATEGORY GRID & DETAIL */
         .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .cat-item { background: white; padding: 20px; border-radius: 22px; text-align: center; cursor: pointer; border: 1px solid #edf2f7; transition: 0.2s; }
-        .cat-item:active { transform: scale(0.95); background: #f0fdf4; }
-        .cat-icon { font-size: 30px; margin-bottom: 8px; }
-        .cat-label { font-size: 11px; font-weight: 700; color: #475569; }
+        .cat-item { background: white; padding: 22px 15px; border-radius: 22px; text-align: center; cursor: pointer; border: 1px solid #edf2f7; transition: 0.2s; }
+        .cat-item:active { transform: scale(0.96); background: #f0fdf4; }
+        .cat-icon { font-size: 32px; margin-bottom: 10px; }
+        .cat-label { font-size: 11px; font-weight: 700; color: #475569; text-transform: uppercase; }
 
         /* SUB-CATEGORY BUTTONS */
-        .sub-btn { width: 100%; padding: 15px; border-radius: 15px; border: 1px solid #e2e8f0; background: white; margin-bottom: 10px; text-align: left; font-weight: 700; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-        .sub-btn:active { background: #f8fafc; }
+        .sub-nav { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; }
+        .sub-btn { padding: 10px 20px; border-radius: 12px; border: none; background: #e2e8f0; font-size: 12px; font-weight: 700; white-space: nowrap; cursor: pointer; }
+        .sub-btn.active { background: var(--primary); color: white; }
+
+        /* NEWS & FILTERS */
+        .news-filter { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 15px; scrollbar-width: none; }
+        .filter-btn { padding: 8px 18px; background: white; border-radius: 12px; border: none; font-size: 11px; font-weight: 700; color: #64748b; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .filter-btn.active { background: var(--primary); color: white; }
 
         /* NAV BAR */
-        .nav-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; background: rgba(15, 23, 42, 0.98); backdrop-filter: blur(15px); border-radius: 25px; display: flex; padding: 10px; z-index: 1000; }
-        .nav-item { flex: 1; text-align: center; color: #64748b; font-size: 10px; font-weight: 600; cursor: pointer; }
+        .nav-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 400px; background: rgba(15, 23, 42, 0.98); backdrop-filter: blur(15px); border-radius: 25px; display: flex; padding: 12px; z-index: 1000; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+        .nav-item { flex: 1; text-align: center; color: #64748b; font-size: 10px; font-weight: 700; cursor: pointer; }
         .nav-item.active { color: var(--primary); }
-        .nav-icon { font-size: 20px; display: block; margin-bottom: 4px; }
+        .nav-icon { font-size: 22px; display: block; margin-bottom: 4px; }
+
+        /* FORM ELEMENTS */
+        .app-input { width: 100%; border: none; background: #f1f5f9; padding: 15px; border-radius: 14px; font-size: 18px; font-weight: 700; outline: none; margin-top: 5px; }
+        .field-label { font-size: 10px; font-weight: 800; color: #94a3b8; text-transform: uppercase; }
+        .btn-action { width: 100%; padding: 16px; border-radius: 16px; border: none; background: var(--primary); color: white; font-weight: 800; cursor: pointer; margin-top: 10px; }
+        
+        /* SPLASH SCREEN */
+        #lang-screen { position: fixed; inset: 0; background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%); z-index: 10000; display: flex; align-items: center; justify-content: center; }
+        .lang-card { width: 85%; max-width: 360px; text-align: center; color: white; }
     </style>
 </head>
 <body>
 
-    <div id="main-app">
+    <div id="lang-screen">
+        <div class="lang-card">
+            <h1 style="font-size:32px; margin-bottom:40px;">HOŞ GELDIŇIZ</h1>
+            <button class="sub-btn" onclick="startApp('tk')" style="width:100%; padding:20px; background:white; color:var(--dark); margin-bottom:15px; font-size:16px;">TÜRKMEN DILI</button>
+            <button class="sub-btn" onclick="startApp('ru')" style="width:100%; padding:20px; background:white; color:var(--dark); margin-bottom:15px; font-size:16px;">РУССКИЙ ЯЗЫК</button>
+        </div>
+    </div>
+
+    <div id="main-app" style="display:none;">
         <header><h1 id="header-title" style="margin:0; font-size:24px;">Kurs</h1></header>
 
         <div class="content">
             <div id="kurs" class="page active">
-                <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color:white; padding:25px; border-radius:25px; margin-bottom:20px;">
-                    <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:800; margin-bottom:15px; opacity:0.8;"><span>Bazar Bahasy</span><span>Aktual</span></div>
+                <div class="nagt-box">
+                    <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:800; opacity:0.8; margin-bottom:20px;"><span>⚡ WALYUTAÇY (NAGT)</span><span>AKTUAL</span></div>
                     <div style="display:flex; gap:10px; text-align:center;">
-                        <div style="flex:1;"><div style="font-size:10px;">$1 USD</div><div style="font-size:26px; font-weight:900;">82.00₽</div></div>
-                        <div style="flex:1;"><div style="font-size:10px;">1 TMT</div><div style="font-size:26px; font-weight:900;">4.20₽</div></div>
+                        <div style="flex:1;"><div style="font-size:10px; opacity:0.8;">$1 USD</div><input type="number" id="vUSD" value="82.00" oninput="calc('RUB')" style="width:100%; border:none; background:none; color:white; font-size:30px; font-weight:900; text-align:center; outline:none;"></div>
+                        <div style="width:1px; background:rgba(255,255,255,0.2); height:50px; align-self:center;"></div>
+                        <div style="flex:1;"><div style="font-size:10px; opacity:0.8;">1 TMT</div><input type="number" id="vTMT" value="4.20" oninput="calc('RUB')" style="width:100%; border:none; background:none; color:white; font-size:30px; font-weight:900; text-align:center; outline:none;"></div>
                     </div>
                 </div>
-                <div class="card"><div style="font-size:10px; font-weight:800; color:#94a3b8;">BANK BAHASY</div><div style="font-size:20px; font-weight:800; color:#ef4444;">$1 = 78.57 ₽</div></div>
+                <div class="card"><label class="field-label">🇷🇺 RUBL (₽)</label><input type="number" id="iRUB" class="app-input" oninput="calc('RUB')" placeholder="0"></div>
+                <div class="card" style="border:2px solid var(--primary);"><label class="field-label" style="color:var(--primary);">🇹🇲 MANAT (TMT)</label><input type="number" id="iTMT" class="app-input" oninput="calc('TMT')" style="background:#f0fdf4;" placeholder="0"></div>
             </div>
+
             <div id="bildirish" class="page">
-                <div id="main-categories" class="cat-grid">
-                    <div class="cat-item" onclick="showSub('kargo')"><div class="cat-icon">📦</div><div class="cat-label">Kargo</div></div>
-                    <div class="cat-item" onclick="showSub('perevod')"><div class="cat-icon">💸</div><div class="cat-label">Perevod</div></div>
-                    <div class="cat-item" onclick="showSub('ish')"><div class="cat-icon">💼</div><div class="cat-label">Iş we Işgär</div></div>
-                    <div class="cat-item" onclick="showSub('taksi')"><div class="cat-icon">🚖</div><div class="cat-label">Taksi</div></div>
-                    <div class="cat-item" onclick="showSub('sowgat')"><div class="cat-icon">🎁</div><div class="cat-label">Sowgat</div></div>
-                    <div class="cat-item" onclick="showSub('bilet')"><div class="cat-icon">✈️</div><div class="cat-label">Awiabilet</div></div>
-                    <div class="cat-item" onclick="showSub('okuw')"><div class="cat-icon">🎓</div><div class="cat-label">Okuw</div></div>
-                    <div class="cat-item" onclick="showSub('dokument')"><div class="cat-icon">📄</div><div class="cat-label">Dokument</div></div>
+                <div id="cat-main">
+                    <div class="cat-grid">
+                        <div class="cat-item" onclick="openService('kargo')"><div class="cat-icon">📦</div><div class="cat-label">Kargo (Ýük)</div></div>
+                        <div class="cat-item" onclick="openService('perevod')"><div class="cat-icon">💸</div><div class="cat-label">Pul Perevod</div></div>
+                        <div class="cat-item" onclick="openService('ish')"><div class="cat-icon">💼</div><div class="cat-label">Iş we İşgär</div></div>
+                        <div class="cat-item" onclick="openService('taksi')"><div class="cat-icon">🚖</div><div class="cat-label">Taksi Hyzmaty</div></div>
+                        <div class="cat-item" onclick="openService('sowgat')"><div class="cat-icon">🎁</div><div class="cat-label">Sowgat Hyzmaty</div></div>
+                        <div class="cat-item" onclick="openService('bilet')"><div class="cat-icon">✈️</div><div class="cat-label">Awiabilet</div></div>
+                        <div class="cat-item" onclick="openService('okuw')"><div class="cat-icon">🎓</div><div class="cat-label">Okuw Kömegi</div></div>
+                        <div class="cat-item" onclick="openService('dokument')"><div class="cat-icon">📄</div><div class="cat-label">Dokument</div></div>
+                    </div>
                 </div>
 
-                <div id="sub-categories" style="display:none;">
-                    <button onclick="backToMain()" style="background:none; border:none; color:var(--primary); font-weight:800; margin-bottom:15px; cursor:pointer;">← YZA GAÝTMAK</button>
-                    <h2 id="sub-title" style="margin:0 0 20px 0;"></h2>
-                    <div id="sub-list"></div>
+                <div id="cat-detail" style="display:none;">
+                    <button onclick="closeService()" style="background:none; border:none; color:var(--primary); font-weight:800; font-size:14px; margin-bottom:20px; cursor:pointer;">← ÄHLI HYZMATLAR</button>
+                    <div id="detail-content"></div>
                 </div>
             </div>
 
             <div id="habar" class="page">
-                <div class="card"><h3>Sport Habarlary</h3><p style="font-size:13px; color:#64748b;">Halkara we milli sport täzelikleri ýakynda...</p></div>
-                <div class="card"><h3>Tehnologiýa</h3><p style="font-size:13px; color:#64748b;">Sanly dünýäniň iň soňky habarlary...</p></div>
+                <div class="news-filter">
+                    <button class="filter-btn active" onclick="filterNews('all', this)">Hemmesi</button>
+                    <button class="filter-btn" onclick="filterNews('resmi', this)">Resmi</button>
+                    <button class="filter-btn" onclick="filterNews('sport', this)">Sport</button>
+                    <button class="filter-btn" onclick="filterNews('tehno', this)">Tehno</button>
+                </div>
+                <div id="news-list"></div>
             </div>
 
             <div id="profil" class="page">
-                <div class="card" style="text-align:center;"><h2>Şahsy Hasap</h2><p>Bildiriş goşmak üçin giriň.</p></div>
+                <div class="card" style="text-align:center; padding:40px 20px;">
+                    <div style="font-size:60px; margin-bottom:20px;">👤</div>
+                    <h2>Şahsy Hasap</h2>
+                    <p style="color:#64748b; font-size:14px; margin-bottom:30px;">Bildiriş goşmak we dolandyrmak üçin agza boluň.</p>
+                    <div style="text-align:left;"><label class="field-label">Telefon belgiňiz</label><input type="tel" class="app-input" placeholder="+993..."></div>
+                    <button class="btn-action">GIRIŞ ET</button>
+                </div>
             </div>
         </div>
 
         <nav class="nav-bar">
-            <div class="nav-item active" onclick="nav('kurs', this)"><span class="nav-icon">📊</span><span>Kurs</span></div>
-            <div class="nav-item" onclick="nav('bildirish', this)"><span class="nav-icon">📦</span><span>Hyzmatlar</span></div>
-            <div class="nav-item" onclick="nav('habar', this)"><span class="nav-icon">📰</span><span>Habarlar</span></div>
-            <div class="nav-item" onclick="nav('profil', this)"><span class="nav-icon">👤</span><span>Profil</span></div>
+            <div class="nav-item active" onclick="showPage('kurs', this)"><span class="nav-icon">📊</span><span class="n-txt">Kurs</span></div>
+            <div class="nav-item" onclick="showPage('bildirish', this)"><span class="nav-icon">📦</span><span class="n-txt">Hyzmatlar</span></div>
+            <div class="nav-item" onclick="showPage('habar', this)"><span class="nav-icon">📰</span><span class="n-txt">Habarlar</span></div>
+            <div class="nav-item" onclick="showPage('profil', this)"><span class="nav-icon">👤</span><span class="n-txt">Profil</span></div>
         </nav>
     </div>
 
     <script>
-        // Hyzmatlaryň içki bölümleri baradaky maglumatlar
-        const subData = {
-            kargo: { title: "📦 Kargo Hyzmaty", subs: ["Russiýa - Türkmenistan", "Türkmenistan - Russiýa", "Kuryer hyzmaty"] },
-            perevod: { title: "💸 Pul Perevod", subs: ["Karta - Karta (Tiz)", "Nagt - Karta", "Manat - Rubl çalşygy"] },
-            ish: { title: "💼 Iş we Işgär", subs: ["Iş Berýärin (Wakansiýa)", "Iş Gözleýärin (Anketa)", "Gyssagly Işler"] },
-            taksi: { title: "🚖 Taksi Hyzmaty", subs: ["Şäherara Taksi", "Aeroport Garşylamak", "Ýolugur (Poputçik)"] },
-            sowgat: { title: "🎁 Sowgat Hyzmaty", subs: ["Gül eltip bermek", "Tort we Süýjülikler", "Toý sowgatlary"] },
-            bilet: { title: "✈️ Awiabilet", subs: ["Aşgabat - Moskwa", "Moskwa - Aşgabat", "Bilet Bronlamak"] },
-            okuw: { title: "🎓 Okuw Kömegi", subs: ["Uniwersitet saýlamak", "Resminama terjime", "Diplom tassyklatmak"] },
-            dokument: { title: "📄 Dokument", subs: ["Pasport uzaltmak", "Registrasiýa (Propiska)", "Wiza kömegi"] }
+        // HYZMATLAR MAGLUMATY
+        const serviceData = {
+            kargo: { title: "Kargo (Ýük Daşama)", content: <div class="card"><h3>📦 Moskwa - Aşgabat</h3><p>Her penşenbe ugraýar. 1 kg = 250 ₽.</p><button class="btn-action">JAŇ ET</button></div><div class="card"><h3>📦 Piter - Mary</h3><p>Amatly nyrhlar. 15 gün içinde eltýäris.</p><button class="btn-action">HABARLAŞMAK</button></div> },
+            ish: { title: "Iş we Işgär", content: <div class="sub-nav"><button class="sub-btn active">Iş Gözleýärin</button><button class="sub-btn">Iş Berýärin</button></div><div class="card"><h3>👨‍🔧 Gurluşykçy Gerek</h3><p>Moskwa şäheri, aýlyk 100-120 müň ₽. Ýatak jaý bar.</p><button class="btn-action">GÖRMÜŞ</button></div> },
+            taksi: { title: "Taksi Hyzmaty", content: <div class="card"><h3>🚖 Moskwa - Kazan</h3><p>Ertir sagat 08:00-da 2 adamlyk ýer bar.</p><button class="btn-action">BRON ET</button></div> },
+            perevod: { title: "Pul Perevod", content: <div class="card"><h3>💸 Tiz Perevod</h3><p>Russiýadan Türkmenistana (Karta/Nagt). Nyrh: 19.50.</p><button class="btn-action">HASAPLA</button></div> },
+            okuw: { title: "Okuw Kömegi", content: <div class="card"><h3>🎓 Uniwersitet Saýlamak</h3><p>Russiýanyň döwlet uniwersitetlerine girmäge kömek edýäris.</p><button class="btn-action">MAGLUMAT AL</button></div> },
+            dokument: { title: "Dokument Kömegi", content: <div class="card"><h3>📄 Pasport Uzaltmak</h3><p>Gerekli resminamalaryň sanawy we konsullyk kömegi.</p><button class="btn-action">GÖRMÜŞ</button></div> }
         };
-        function nav(id, el) {
+
+        // HABARLAR MAGLUMATY
+        const newsItems = [
+            { cat: 'resmi', title: 'Täze Migrasiýa Kanuny', desc: 'Russiýada migrantlar üçin täze düzgünler 2026-njy ýylda güýje girer.' },
+            { cat: 'sport', title: 'Türkmenistan - Eýran oýny', desc: 'Milli ýygyndymyz Aziýa Kubogyna taýýarlyk görýär.' },
+            { cat: 'tehno', title: 'iPhone 17 Pro Max', desc: 'Täze modelde AI tehnologiýalary has kämil bolar.' }
+        ];
+
+        function startApp(l) {
+            localStorage.setItem('lang', l);
+            document.getElementById('lang-screen').style.display = 'none';
+            document.getElementById('main-app').style.display = 'block';
+            updateNews('all');
+        }
+
+        function showPage(id, el) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             el.classList.add('active');
-            document.getElementById('header-title').innerText = el.innerText;
+            window.scrollTo(0,0);
         }
 
-        function showSub(key) {
-            const data = subData[key];
-            document.getElementById('main-categories').style.display = 'none';
-            document.getElementById('sub-categories').style.display = 'block';
-            document.getElementById('sub-title').innerText = data.title;
-            
-            let html = "";
-            data.subs.forEach(s => {
-                html += <div class="sub-btn" onclick="alert('${s} bölümi ýakynda işläp başlar!')">${s} <span>→</span></div>;
-            });
-            document.getElementById('sub-list').innerHTML = html;
+        function openService(key) {
+            const data = serviceData[key] || { title: "Hyzmat", content: "<p>Häzirlikçe bildiriş ýok.</p>" };
+            document.getElementById('cat-main').style.display = 'none';
+            document.getElementById('cat-detail').style.display = 'block';
+            document.getElementById('detail-content').innerHTML = <h2>${data.title}</h2>${data.content};
         }
 
-        function backToMain() {
-            document.getElementById('main-categories').style.display = 'grid';
-            document.getElementById('sub-categories').style.display = 'none';
+        function closeService() {
+            document.getElementById('cat-main').style.display = 'grid';
+            document.getElementById('cat-detail').style.display = 'none';
+        }
+
+        function filterNews(cat, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            updateNews(cat);
+        }
+
+        function updateNews(cat) {
+            const list = document.getElementById('news-list');
+            const filtered = cat === 'all' ? newsItems : newsItems.filter(n => n.cat === cat);
+            list.innerHTML = filtered.map(n => <div class="card"><span style="color:var(--accent); font-size:10px; font-weight:800;">${n.cat.toUpperCase()}</span><h3 style="margin:8px 0;">${n.title}</h3><p style="font-size:13px; color:#64748b;">${n.desc}</p></div>).join('');
+        }
+
+        function calc(type) {
+            const vUSD = parseFloat(document.getElementById('vUSD').value) || 0;
+            const vTMT = parseFloat(document.getElementById('vTMT').value) || 0;
+            const iRUB = document.getElementById('iRUB'), iTMT = document.getElementById('iTMT');
+            let rub = 0;
+            if(type === 'RUB') rub = parseFloat(iRUB.value) || 0;
+            else if(type === 'TMT') rub = (parseFloat(iTMT.value) || 0) * vTMT;
+            iRUB.value = type !== 'RUB' ? rub.toFixed(2) : iRUB.value;
+            iTMT.value = type !== 'TMT' ? (rub / vTMT).toFixed(2) : iTMT.value;
         }
     </script>
 </body>

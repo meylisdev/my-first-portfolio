@@ -1,69 +1,134 @@
-background: #25D366; 
+<!DOCTYPE html>
+<html lang="tk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meylis | Market App</title>
+    <style>
+        /* Ählisiniň ölçegini deňlemek üçin */
+        * { box-sizing: border-box; }
+        
+        body { 
+            font-family: sans-serif; 
+            background-color: #0f172a; 
             color: white; 
-            text-decoration: none; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            margin-top: 15px;
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.2);
+            margin: 0; 
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* Media Query - Has kiçi telefonlar üçin ýörite sazlamalar */
-        @media (max-width: 380px) {
-            .container { padding: 15px; }
-            h1 { font-size: 1.2rem; }
+        .app-container {
+            width: 100%;
+            max-width: 400px;
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 20px;
+            margin-top: 20px;
+            text-align: center;
+            border: 1px solid #334155;
+        }
+
+        /* SURATYŇ ÖLÇEGI */
+        .my-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #10b981;
+            object-fit: cover;
+        }
+
+        .card {
+            background: #0f172a;
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: left;
+            border-top: 4px solid #10b981;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: white;
+            border-radius: 10px;
+            font-size: 16px; /* Telefonda zoom bolmazlygy üçin */
+        }
+
+        .rates-row {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .rates-row div { flex: 1; text-align: center; font-size: 12px; color: #94a3b8; }
+
+        .btn-wa {
+            display: block;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="profile-header">
-            <img src="me.jpg" alt="Meylis" class="profile-img">
-            <h1>Meylis</h1>
-            <div class="subtitle">Developer & Solution Maker</div>
-        </div>
+    <div class="app-container">
+        <img src="me.jpg" alt="Meylis" class="my-photo">
+        <h2 style="margin: 10px 0 0 0;">Meylis</h2>
+        <p style="color: #38bdf8; margin: 0 0 20px 0; font-size: 14px;">Market & Plans</p>
 
-        <div class="section-box">
-            <h3 class="section-title">📊 Market Exchange</h3>
-            <div class="rates-config">
-                <div><label>USD</label><input type="number" id="usdR" value="19.5"></div>
-                <div><label>RUB</label><input type="number" id="rubR" value="0.21"></div>
-                <div><label>TRY</label><input type="number" id="tryR" value="0.65"></div>
+        <div class="card">
+            <h4 style="margin: 0 0 10px 0; color: #10b981;">📊 Bazar Kursy</h4>
+            
+            <div class="rates-row">
+                <div>USD <input type="number" id="rUSD" value="19.5" step="0.1"></div>
+                <div>RUB <input type="number" id="rRUB" value="0.21" step="0.01"></div>
+                <div>TRY <input type="number" id="rTRY" value="0.65" step="0.01"></div>
             </div>
 
-            <label>Dollar ($)</label>
-            <input type="number" id="vUSD" placeholder="0" oninput="fromUSD()">
-            <label>Rubl (₽)</label>
-            <input type="number" id="vRUB" placeholder="0" oninput="fromRUB()">
-            <label>Türkmen Manady (TMT)</label>
-            <input type="number" id="vTMT" placeholder="0" oninput="fromTMT()">
-            <label>Türk Lirasy (₺)</label>
-            <input type="number" id="vTRY" placeholder="0" oninput="fromTRY()">
+            <label style="font-size: 12px;">Dollar ($)</label>
+            <input type="number" id="iUSD" oninput="calc('USD')">
+
+            <label style="font-size: 12px;">Rubl (₽)</label>
+            <input type="number" id="iRUB" oninput="calc('RUB')">
+
+            <label style="font-size: 12px;">Manat (TMT)</label>
+            <input type="number" id="iTMT" oninput="calc('TMT')">
         </div>
 
-        <div class="section-box" style="border-top-color: var(--sky);">
-            <h3 class="section-title" style="color: var(--sky);">📝 Daily Plans</h3>
-            <div style="display: flex; gap: 8px;">
-                <input type="text" id="taskInp" placeholder="New task..." style="margin-bottom:0;">
-                <button onclick="addTask()" class="btn-sky" style="width: 80px;">Add</button>
-            </div>
-            <ul id="taskList" style="list-style: none; padding: 0; margin-top: 15px;"></ul>
-        </div>
-
-        <a href="https://wa.me/79509458986" class="btn-whatsapp button" target="_blank" style="border-radius: 10px; padding: 12px; font-weight: bold;">
-            💬 Chat on WhatsApp
-        </a>
+        <a href="https://wa.me/79509458986" class="btn-wa">Habarlaşmak (WhatsApp)</a>
     </div>
 
     <script>
-        // (Hasaplama kody öňki ýaly galýar)
-        function getR() { return { u: +document.getElementById('usdR').value, r: +document.getElementById('rubR').value, t: +document.getElementById('tryR').value }; }
-        function fromTMT() { const k = getR(), v = +document.getElementById('vTMT').value; document.getElementById('vUSD').value = (v / k.u).toFixed(2); document.getElementById('vRUB').value = (v / k.r).toFixed(2); document.getElementById('vTRY').value = (v / k.t).toFixed(2); }
-        function fromUSD() { const k = getR(), v = +document.getElementById('vUSD').value, tmt = v * k.u; document.getElementById('vTMT').value = tmt.toFixed(2); document.getElementById('vRUB').value = (tmt / k.r).toFixed(2); document.getElementById('vTRY').value = (tmt / k.t).toFixed(2); }
-        function fromRUB() { const k = getR(), v = +document.getElementById('vRUB').value, tmt = v * k.r; document.getElementById('vTMT').value = tmt.toFixed(2); document.getElementById('vUSD').value = (tmt / k.u).toFixed(2); document.getElementById('vTRY').value = (tmt / k.t).toFixed(2); }
-        function fromTRY() { const k = getR(), v = +document.getElementById('vTRY').value, tmt = v * k.t; document.getElementById('vTMT').value = tmt.toFixed(2); document.getElementById('vUSD').value = (tmt / k.u).toFixed(2); document.getElementById('vRUB').value = (tmt / k.r).toFixed(2); }
-        function addTask() { const inp = document.getElementById('taskInp'); if (!inp.value) return; const li = document.createElement('li'); li.className = 'task-item'; li.innerHTML = <span>${inp.value}</span>; li.onclick = function() { this.style.textDecoration = 'line-through'; this.style.opacity = '0.5'; }; document.getElementById('taskList').appendChild(li); inp.value = ''; }
+        function calc(type) {
+            const rUSD = document.getElementById('rUSD').value;
+            const rRUB = document.getElementById('rRUB').value;
+            const rTRY = document.getElementById('rTRY').value;
+            
+            const iUSD = document.getElementById('iUSD');
+            const iRUB = document.getElementById('iRUB');
+            const iTMT = document.getElementById('iTMT');
+
+            if(type === 'TMT') {
+                iUSD.value = (iTMT.value / rUSD).toFixed(2);
+                iRUB.value = (iTMT.value / rRUB).toFixed(2);
+                } else if(type === 'USD') {
+                iTMT.value = (iUSD.value * rUSD).toFixed(2);
+                iRUB.value = (iTMT.value / rRUB).toFixed(2);
+            } else if(type === 'RUB') {
+                iTMT.value = (iRUB.value * rRUB).toFixed(2);
+                iUSD.value = (iTMT.value / rUSD).toFixed(2);
+            }
+        }
     </script>
 </body>
 </html>

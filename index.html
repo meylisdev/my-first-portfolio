@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bazar & Media</title>
+    <title>Bazar & Media | MEGA</title>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
+    <link rel="apple-touch-icon" href="me.jpg">
+
     <style>
         :root {
             --primary: #10b981;
@@ -15,10 +16,10 @@
             --bg: #0f172a;
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; transition: 0.3s; }
         
         body { 
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background: radial-gradient(circle at top left, #064e3b, #0f172a);
             margin: 0; 
             padding: 0;
@@ -26,96 +27,51 @@
             justify-content: center;
             min-height: 100vh;
             color: #1e293b;
+            overflow-x: hidden;
         }
 
-        /* Esasy App Gabygy */
-        .app-shell {
-            width: 100%;
-            max-width: 450px;
-            position: relative;
-            padding: 20px 20px 100px 20px;
-        }
+        .app-shell { width: 100%; max-width: 450px; padding: 20px 20px 100px 20px; }
 
-        /* Sahypalar */
-        .page { display: none; animation: fadeIn 0.5s ease; }
+        /* Sahypa Animasiýasy */
+        .page { display: none; animation: slideIn 0.4s ease-out; }
         .page.active { display: block; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Glass Card Style */
+        /* Glassmorphism Card */
         .glass-card {
             background: var(--glass);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
             border-radius: 30px;
             padding: 25px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
             margin-bottom: 20px;
         }
 
-        /* Baýdak dizaýny */
-        .header-ui { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding: 0 10px; }
-        .flag-pill { background: #064e3b; padding: 5px 15px; border-radius: 50px; display: flex; gap: 8px; align-items: center; box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3); }
-
-        /* Inputlar */
-        .input-box {
-            background: #f8fafc;
-            border-radius: 20px;
-            padding: 15px;
-            margin-bottom: 12px;
-            border: 1.5px solid #e2e8f0;
-        }
-        .input-box label { font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; display: block; }
-        .input-box input { width: 100%; border: none; background: transparent; font-size: 22px; font-weight: 700; outline: none; color: #0f172a; }
-
-        /* Habar Kartlary */
-        .news-card {
-            background: #ffffff;
-            border-radius: 20px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            border: 1px solid #e2e8f0;
-        }
-        .news-content { padding: 15px; }
-        .news-tag { background: #10b981; color: white; font-size: 10px; padding: 3px 10px; border-radius: 5px; font-weight: bold; }
-        
-        /* Audio Button */
-        .audio-btn {
-            background: #38bdf8;
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 12px;
-            border-radius: 12px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            cursor: pointer;
-        }
-
-        /* ASHAKY MENÝU (Navigation) */
+        /* Nav Bar Style */
         .nav-bar {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% - 40px);
-            max-width: 380px;
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(20px);
-            border-radius: 25px;
-            display: flex;
-            justify-content: space-around;
-            padding: 15px;
-            border: 1px solid rgba(255,255,255,0.1);
-            z-index: 1000;
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            width: calc(100% - 40px); max-width: 380px;
+            background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(20px);
+            border-radius: 25px; display: flex; justify-content: space-around;
+            padding: 12px; border: 1px solid rgba(255,255,255,0.1); z-index: 1000;
         }
-        .nav-item { color: #94a3b8; text-decoration: none; font-size: 12px; display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; }
-        .nav-item.active { color: #10b981; }
-        .nav-icon { font-size: 20px; }
+        .nav-item { color: #94a3b8; text-decoration: none; font-size: 11px; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; }
+        .nav-item.active { color: var(--primary); }
+        .nav-icon { font-size: 22px; }
 
+        /* Input Styles */
+        .input-box { background: #f8fafc; border-radius: 18px; padding: 12px 15px; margin-bottom: 12px; border: 1.5px solid #e2e8f0; }
+        .input-box label { font-size: 10px; font-weight: 800; color: #94a3b8; text-transform: uppercase; display: block; }
+        .input-box input { width: 100%; border: none; background: transparent; font-size: 20px; font-weight: 700; outline: none; color: #1e293b; }
+
+        /* News Cards */
+        .news-card { background: white; border-radius: 22px; overflow: hidden; margin-bottom: 15px; border: 1px solid #e5e7eb; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .news-tag { font-size: 9px; padding: 3px 10px; border-radius: 6px; color: white; font-weight: bold; }
+        .audio-btn { width: 100%; background: #f1f5f9; border: none; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+
+        /* Buttons */
+        .primary-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 18px; font-weight: bold; cursor: pointer; font-size: 16px; }
     </style>
 </head>
 <body>
@@ -123,123 +79,117 @@
     <div class="app-shell">
         
         <div id="bazar" class="page active">
-            <div class="header-ui">
-                <div class="flag-pill">
-                    <span style="font-size: 12px;">🇷🇺</span>
-                    <span style="color: white; font-weight: bold;">&</span>
-                    <span style="font-size: 12px;">🇹🇲</span>
-                </div>
-                <h3 style="margin:0; color: white;">Bazar Nyrhy</h3>
-            </div>
-
+            <h2 style="color: white; text-align: center; margin-bottom: 20px;">📊 Bazar Nyrhy</h2>
             <div class="glass-card">
-                <div style="display: flex; gap: 5px; margin-bottom: 20px;">
-                    <input type="number" id="rUSD" value="19.50" oninput="calc('TMT')" style="width:33%; padding:8px; border-radius:10px; border:1px solid #ddd; text-align:center; font-weight:bold;">
-                    <input type="number" id="rRUB" value="0.21" oninput="calc('TMT')" style="width:33%; padding:8px; border-radius:10px; border:1px solid #ddd; text-align:center; font-weight:bold;">
-                    <input type="number" id="rTRY" value="0.65" oninput="calc('TMT')" style="width:33%; padding:8px; border-radius:10px; border:1px solid #ddd; text-align:center; font-weight:bold;">
+                <div style="display: flex; gap: 8px; margin-bottom: 15px;">
+                    <div style="flex:1"><label style="font-size:9px; color:#94a3b8">USD</label><input type="number" id="rUSD" value="19.50" oninput="calc('TMT')" style="width:100%; padding:8px; border-radius:10px; border:1px solid #ddd; text-align:center;"></div>
+                    <div style="flex:1"><label style="font-size:9px; color:#94a3b8">RUB</label><input type="number" id="rRUB" value="0.21" oninput="calc('TMT')" style="width:100%; padding:8px; border-radius:10px; border:1px solid #ddd; text-align:center;"></div>
+                    <div style="flex:1"><label style="font-size:9px; color:#94a3b8">TRY</label><input type="number" id="rTRY" value="0.65" oninput="calc('TMT')" style="width:100%; padding:8px; border-radius:10px; border:1px solid #ddd; text-align:center;"></div>
                 </div>
-
-                <div class="input-box">
-                    <label>🇷🇺 RUBL (₽)</label>
-                    <input type="number" id="iRUB" placeholder="0" oninput="calc('RUB')">
-                </div>
-                <div class="input-box" style="border-color: var(--primary); background: #f0fdf4;">
-                    <label style="color: var(--primary);">🇹🇲 MANAT (TMT)</label>
-                    <input type="number" id="iTMT" placeholder="0" oninput="calc('TMT')">
-                </div>
-                <div class="input-box">
-                    <label>🇺🇸 DOLLAR ($)</label>
-                    <input type="number" id="iUSD" placeholder="0" oninput="calc('USD')">
-                </div>
+                <div class="input-box"><label>🇷🇺 RUBL (₽)</label><input type="number" id="iRUB" placeholder="0" oninput="calc('RUB')"></div>
+                <div class="input-box" style="border-color: var(--primary); background: #f0fdf4;"><label style="color: var(--primary);">🇹🇲 MANAT (TMT)</label><input type="number" id="iTMT" placeholder="0" oninput="calc('TMT')"></div>
+                <div class="input-box"><label>🇺🇸 DOLLAR ($)</label><input type="number" id="iUSD" placeholder="0" oninput="calc('USD')"></div>
+                <div class="input-box"><label>🇹🇷 LIRA (₺)</label><input type="number" id="iTRY" placeholder="0" oninput="calc('TRY')"></div>
             </div>
         </div>
 
         <div id="media" class="page">
-            <h2 style="color: white; text-align: center; margin-bottom: 25px;">Möhüm Wakalar</h2>
-            
-            <div class="news-card">
-                <div class="news-content">
-                    <span class="news-tag">DÜNÝÄ</span>
-                    <h3 id="t1">Tehnologiýa dünýäsinde täze döwür başlaýar.</h3>
-                    <p id="n1" style="color: #64748b; font-size: 14px;">Emeli intellekt indi türkmen dilini hem has takyk öwrenip başlady. Bu bolsa bilim pudagynda uly täzelikdir.</p>
-                    <button class="audio-btn" onclick="speak('n1')"><span>🔊</span> Diňle</button>
-                </div>
-            </div>
-
-            <div class="news-card">
-                <div class="news-content">
-                    <span class="news-tag" style="background: #38bdf8;">SPORT</span>
-                    <h3 id="t2">Türkmen türgenleri halkara ýaryşlarda altyn medal gazandylar.</h3>
-                    <p id="n2" style="color: #64748b; font-size: 14px;">Ýeňil atletika boýunça geçirilen ýaryşda biziň ýigitlerimiz iň ýokary netijeleri görkezdiler.</p>
-                    <button class="audio-btn" style="background: #10b981;" onclick="speak('n2')"><span>🔊</span> Diňle</button>
-                </div>
-            </div>
+            <h2 style="color: white; text-align: center; margin-bottom: 20px;">📰 Täzelikler</h2>
+            <div id="news-container"></div>
         </div>
 
         <div id="profile" class="page">
-            <div class="glass-card" style="text-align: center;">
-                <img src="me.jpg" style="width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--primary); margin-bottom: 15px;">
-                <h2 style="margin: 0;">Meylis</h2>
-                <p style="color: #64748b;">Full-Stack Developer</p>
-                <a href="https://wa.me/79509458986" style="text-decoration: none; display: block; background: #25D366; color: white; padding: 15px; border-radius: 15px; font-weight: bold; margin-top: 20px;">WhatsApp-da Yaz</a>
+            <div id="auth-section" class="glass-card">
+                <h2>Agza boluň</h2>
+                <div class="input-box"><label>Adyňyz</label><input type="text" id="regName" placeholder="Meylis"></div>
+                <div class="input-box"><label>Parol</label><input type="password" id="regPass" placeholder="**"></div>
+                <button class="primary-btn" onclick="handleRegister()">Hasap döret</button>
+            </div>
+
+            <div id="user-profile" class="glass-card" style="display: none; text-align: center;">
+                <img src="me.jpg" id="profImg" style="width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--primary); object-fit: cover;">
+                <h2 id="displayUserName" style="margin: 15px 0 5px 0;">Ulanyjy</h2>
+                <p style="color: #94a3b8; font-size: 14px; margin-bottom: 20px;">Online • Hasabyňyz işjeň</p>
+                <button onclick="handleLogout()" style="width: 100%; background: #fee2e2; color: #ef4444; border: none; padding: 12px; border-radius: 15px; font-weight: bold; cursor: pointer;">Çykyş et</button>
             </div>
         </div>
 
         <div class="nav-bar">
-            <div class="nav-item active" onclick="showPage('bazar', this)">
-                <span class="nav-icon">📊</span>
-                <span>Bazar</span>
-            </div>
-            <div class="nav-item" onclick="showPage('media', this)">
-                <span class="nav-icon">📰</span>
-                <span>Media</span>
-            </div>
-            <div class="nav-item" onclick="showPage('profile', this)">
-                <span class="nav-icon">👤</span>
-                <span>Profil</span>
-            </div>
+            <div class="nav-item active" onclick="showPage('bazar', this)"><span class="nav-icon">📊</span><span>Bazar</span></div>
+            <div class="nav-item" onclick="showPage('media', this)"><span class="nav-icon">📰</span><span>Media</span></div>
+            <div class="nav-item" onclick="showPage('profile', this)"><span class="nav-icon">👤</span><span>Profil</span></div>
         </div>
-
     </div>
 
     <script>
-        // Sahypa çalşyjy
-        function showPage(pageId, element) {
+        // HABARLAR MAGLUMATY
+        const newsData = [
+            { cat: "TÜRKMENISTAN", title: "Aşgabatda sanly bilim sistemasy", desc: "Täze okuw ýylynda mekdeplerde elektron žurnallar we sanly kitaphanalar doly işe girizildi.", color: "#10b981" },
+            { cat: "DÜNÝÄ", title: "Marsda ýaşaýyş gözlegleri", desc: "Alymlar Marsyň aşaky gatlaklarynda doňan suw çeşmeleriniň bardygyny subut etdiler.", color: "#38bdf8" },
+            { cat: "TEHNOLOGIÝA", title: "Emeli Intellekt we Saglygy saklaýyş", desc: "Täze AI algoritmleri keselleri öňünden anyklamakda 99% takyklyk görkezdi.", color: "#6366f1" }
+        ];
+        // SAHYPA ÇALŞYJY
+        function showPage(id, el) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            
+            document.getElementById(id).classList.add('active');
             document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            element.classList.add('active');
-            
-            window.scrollTo(0, 0);
+            el.classList.add('active');
+            if(id === 'media') loadNews();
         }
 
-        // Sesli okama
+        // HABARLARY ÝÜKLEMEK
+        function loadNews() {
+            const container = document.getElementById('news-container');
+            container.innerHTML = newsData.map((n, i) => 
+                <div class="news-card">
+                    <div style="padding:15px">
+                        <span class="news-tag" style="background:${n.color}">${n.cat}</span>
+                        <h3 style="margin:10px 0; font-size:16px;">${n.title}</h3>
+                        <p id="t-${i}" style="color:#64748b; font-size:13px; line-height:1.5;">${n.desc}</p>
+                        <button class="audio-btn" onclick="speak('t-${i}')">🔊 Diňle</button>
+                    </div>
+                </div>
+            ).join('');
+        }
+
+        // SESLI OKAMA
         function speak(id) {
             const text = document.getElementById(id).innerText;
-            const synth = window.speechSynthesis;
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'tr-TR'; 
-            synth.speak(utterance);
+            const ut = new SpeechSynthesisUtterance(text);
+            ut.lang = 'tr-TR';
+            window.speechSynthesis.speak(ut);
         }
 
-        // Hasaplama (Market Logic)
+        // BAZAR HASAPLAMALARY
         function calc(type) {
-            const rUSD = parseFloat(document.getElementById('rUSD').value) || 0;
-            const rRUB = parseFloat(document.getElementById('rRUB').value) || 0;
-            const rTRY = parseFloat(document.getElementById('rTRY').value) || 0;
-            const iUSD = document.getElementById('iUSD'), iRUB = document.getElementById('iRUB');
-            const iTMT = document.getElementById('iTMT');
-
+            const rUSD = +document.getElementById('rUSD').value, rRUB = +document.getElementById('rRUB').value, rTRY = +document.getElementById('rTRY').value;
+            const iUSD = document.getElementById('iUSD'), iRUB = document.getElementById('iRUB'), iTMT = document.getElementById('iTMT'), iTRY = document.getElementById('iTRY');
             let tmt = 0;
-            if(type === 'TMT') tmt = parseFloat(iTMT.value) || 0;
-            else if(type === 'USD') tmt = (parseFloat(iUSD.value) || 0) * rUSD;
-            else if(type === 'RUB') tmt = (parseFloat(iRUB.value) || 0) * rRUB;
+            if(type === 'TMT') tmt = +iTMT.value;
+            else if(type === 'USD') tmt = +iUSD.value * rUSD;
+            else if(type === 'RUB') tmt = +iRUB.value * rRUB;
+            else if(type === 'TRY') tmt = +iTRY.value * rTRY;
 
             if(type !== 'TMT') iTMT.value = tmt ? tmt.toFixed(2) : "";
             if(type !== 'USD') iUSD.value = tmt ? (tmt / rUSD).toFixed(2) : "";
             if(type !== 'RUB') iRUB.value = tmt ? (tmt / rRUB).toFixed(2) : "";
+            if(type !== 'TRY') iTRY.value = tmt ? (tmt / rTRY).toFixed(2) : "";
         }
+
+        // REGISTRASIÝA LOGIKASY
+        function handleRegister() {
+            const name = document.getElementById('regName').value;
+            if (name) { localStorage.setItem('user', name); updateUI(); }
+        }
+        function handleLogout() { localStorage.removeItem('user'); updateUI(); }
+        function updateUI() {
+            const user = localStorage.getItem('user');
+            document.getElementById('auth-section').style.display = user ? 'none' : 'block';
+            document.getElementById('user-profile').style.display = user ? 'block' : 'none';
+            if(user) document.getElementById('displayUserName').innerText = user;
+        }
+
+        window.onload = updateUI;
     </script>
 </body>
 </html>

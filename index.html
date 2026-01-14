@@ -3,199 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Milli Super App | v9.0 FINAL</title>
+    <title>Milli App v11</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #10b981; --bg: #f4f7f6; --dark: #0f172a; --white: #ffffff; --accent: #3b82f6; }
+        :root { --primary: #10b981; --bg: #f4f7f6; --dark: #0f172a; --white: #ffffff; }
         * { box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background: var(--bg); margin: 0; padding: 0; color: var(--dark); overflow-x: hidden; }
 
-        /* HEADER & NAVIGATION */
-        header { background: var(--dark); color: white; padding: 50px 20px 25px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        /* LANGUAGE SCREEN */
+        #lang-screen { position: fixed; inset: 0; background: #0f172a; z-index: 10000; display: flex; align-items: center; justify-content: center; }
+        .lang-card { width: 85%; max-width: 360px; text-align: center; }
+        .lang-btn { width: 100%; padding: 18px; margin: 10px 0; border-radius: 18px; border: none; background: white; color: #0f172a; font-weight: 700; cursor: pointer; font-size: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+
+        /* HEADER */
+        header { background: var(--dark); color: white; padding: 50px 20px 25px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; position: sticky; top: 0; z-index: 1000; text-align: center; }
+        
         .content { padding: 20px 15px 120px; max-width: 500px; margin: 0 auto; }
         .page { display: none; }
-        .page.active { display: block; animation: fadeIn 0.3s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .page.active { display: block; }
 
-        /* CARDS & COMPONENTS */
-        .card { background: var(--white); border-radius: 25px; padding: 20px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); border: 1px solid #edf2f7; }
+        /* KURS & CALCULATOR */
+        .card { background: var(--white); border-radius: 25px; padding: 20px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
         .nagt-box { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border-radius: 25px; padding: 20px; margin-bottom: 20px; }
-        
-        /* CATEGORY GRID & DETAIL */
+        .app-input { width: 100%; border: none; background: #f1f5f9; padding: 15px; border-radius: 14px; font-size: 22px; font-weight: 700; outline: none; margin-top: 5px; color: #0f172a; }
+        .field-label { font-size: 11px; font-weight: 800; color: #94a3b8; }
+
+        /* SERVICES GRID */
         .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .cat-item { background: white; padding: 22px 15px; border-radius: 22px; text-align: center; cursor: pointer; border: 1px solid #edf2f7; transition: 0.2s; }
-        .cat-item:active { transform: scale(0.96); background: #f0fdf4; }
-        .cat-icon { font-size: 32px; margin-bottom: 10px; }
-        .cat-label { font-size: 11px; font-weight: 700; color: #475569; text-transform: uppercase; }
-
-        /* SUB-CATEGORY BUTTONS */
-        .sub-nav { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; }
-        .sub-btn { padding: 10px 20px; border-radius: 12px; border: none; background: #e2e8f0; font-size: 12px; font-weight: 700; white-space: nowrap; cursor: pointer; }
-        .sub-btn.active { background: var(--primary); color: white; }
-
-        /* NEWS & FILTERS */
-        .news-filter { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 15px; scrollbar-width: none; }
-        .filter-btn { padding: 8px 18px; background: white; border-radius: 12px; border: none; font-size: 11px; font-weight: 700; color: #64748b; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .filter-btn.active { background: var(--primary); color: white; }
+        .cat-item { background: white; padding: 25px 15px; border-radius: 22px; text-align: center; cursor: pointer; border: 1px solid #edf2f7; }
+        .cat-icon { font-size: 32px; margin-bottom: 8px; }
+        .cat-label { font-size: 12px; font-weight: 700; color: #475569; }
 
         /* NAV BAR */
-        .nav-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 400px; background: rgba(15, 23, 42, 0.98); backdrop-filter: blur(15px); border-radius: 25px; display: flex; padding: 12px; z-index: 1000; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+        .nav-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 400px; background: #0f172a; border-radius: 25px; display: flex; padding: 12px; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         .nav-item { flex: 1; text-align: center; color: #64748b; font-size: 10px; font-weight: 700; cursor: pointer; }
         .nav-item.active { color: var(--primary); }
         .nav-icon { font-size: 22px; display: block; margin-bottom: 4px; }
-
-        /* FORM ELEMENTS */
-        .app-input { width: 100%; border: none; background: #f1f5f9; padding: 15px; border-radius: 14px; font-size: 18px; font-weight: 700; outline: none; margin-top: 5px; }
-        .field-label { font-size: 10px; font-weight: 800; color: #94a3b8; text-transform: uppercase; }
-        .btn-action { width: 100%; padding: 16px; border-radius: 16px; border: none; background: var(--primary); color: white; font-weight: 800; cursor: pointer; margin-top: 10px; }
         
-        /* SPLASH SCREEN */
-        #lang-screen { position: fixed; inset: 0; background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%); z-index: 10000; display: flex; align-items: center; justify-content: center; }
-        .lang-card { width: 85%; max-width: 360px; text-align: center; color: white; }
+        .btn-call { width: 100%; padding: 16px; border-radius: 15px; border: none; background: var(--primary); color: white; font-weight: 700; font-size: 14px; cursor: pointer; margin-top: 15px; }
     </style>
 </head>
 <body>
 
     <div id="lang-screen">
         <div class="lang-card">
-            <h1 style="font-size:32px; margin-bottom:40px;">HOŞ GELDIŇIZ</h1>
-            <button class="sub-btn" onclick="startApp('tk')" style="width:100%; padding:20px; background:white; color:var(--dark); margin-bottom:15px; font-size:16px;">TÜRKMEN DILI</button>
-            <button class="sub-btn" onclick="startApp('ru')" style="width:100%; padding:20px; background:white; color:var(--dark); margin-bottom:15px; font-size:16px;">РУССКИЙ ЯЗЫК</button>
+            <h1 style="color:white; margin-bottom:30px;">DIL SAÝLAŇ</h1>
+            <button class="lang-btn" onclick="initApp('tk')">TÜRKMEN DILI</button>
+            <button class="lang-btn" onclick="initApp('tr')">TÜRKÇE</button>
+            <button class="lang-btn" onclick="initApp('ru')">РУССКИЙ ЯЗЫК</button>
         </div>
     </div>
 
     <div id="main-app" style="display:none;">
-        <header><h1 id="header-title" style="margin:0; font-size:24px;">Kurs</h1></header>
+        <header><h1 id="header-title">Kurs</h1></header>
 
         <div class="content">
             <div id="kurs" class="page active">
                 <div class="nagt-box">
-                    <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:800; opacity:0.8; margin-bottom:20px;"><span>⚡ WALYUTAÇY (NAGT)</span><span>AKTUAL</span></div>
+                    <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:800; opacity:0.8; margin-bottom:15px;"><span>⚡ BAZAR NYRHY</span><span>LIVE</span></div>
                     <div style="display:flex; gap:10px; text-align:center;">
-                        <div style="flex:1;"><div style="font-size:10px; opacity:0.8;">$1 USD</div><input type="number" id="vUSD" value="82.00" oninput="calc('RUB')" style="width:100%; border:none; background:none; color:white; font-size:30px; font-weight:900; text-align:center; outline:none;"></div>
-                        <div style="width:1px; background:rgba(255,255,255,0.2); height:50px; align-self:center;"></div>
-                        <div style="flex:1;"><div style="font-size:10px; opacity:0.8;">1 TMT</div><input type="number" id="vTMT" value="4.20" oninput="calc('RUB')" style="width:100%; border:none; background:none; color:white; font-size:30px; font-weight:900; text-align:center; outline:none;"></div>
+                        <div style="flex:1;"><div style="font-size:10px;">$1 USD</div><input type="number" id="vUSD" value="82.00" oninput="runCalc('RUB')" style="width:100%; border:none; background:none; color:white; font-size:26px; font-weight:900; text-align:center; outline:none;"></div>
+                        <div style="width:1px; background:rgba(255,255,255,0.2); height:40px; align-self:center;"></div>
+                        <div style="flex:1;"><div style="font-size:10px;">1 TMT</div><input type="number" id="vTMT" value="4.20" oninput="runCalc('RUB')" style="width:100%; border:none; background:none; color:white; font-size:26px; font-weight:900; text-align:center; outline:none;"></div>
                     </div>
                 </div>
-                <div class="card"><label class="field-label">🇷🇺 RUBL (₽)</label><input type="number" id="iRUB" class="app-input" oninput="calc('RUB')" placeholder="0"></div>
-                <div class="card" style="border:2px solid var(--primary);"><label class="field-label" style="color:var(--primary);">🇹🇲 MANAT (TMT)</label><input type="number" id="iTMT" class="app-input" oninput="calc('TMT')" style="background:#f0fdf4;" placeholder="0"></div>
+                
+                <div class="card"><label class="field-label" id="label-rub">RUBL (₽)</label><input type="number" id="iRUB" class="app-input" oninput="runCalc('RUB')" placeholder="0"></div>
+                <div class="card" style="border:2px solid var(--primary);"><label class="field-label" id="label-tmt" style="color:var(--primary);">MANAT (TMT)</label><input type="number" id="iTMT" class="app-input" oninput="runCalc('TMT')" placeholder="0"></div>
+                <div class="card"><label class="field-label" id="label-usd">DOLLAR ($)</label><input type="number" id="iUSD" class="app-input" oninput="runCalc('USD')" placeholder="0"></div>
             </div>
 
             <div id="bildirish" class="page">
-                <div id="cat-main">
-                    <div class="cat-grid">
-                        <div class="cat-item" onclick="openService('kargo')"><div class="cat-icon">📦</div><div class="cat-label">Kargo (Ýük)</div></div>
-                        <div class="cat-item" onclick="openService('perevod')"><div class="cat-icon">💸</div><div class="cat-label">Pul Perevod</div></div>
-                        <div class="cat-item" onclick="openService('ish')"><div class="cat-icon">💼</div><div class="cat-label">Iş we İşgär</div></div>
-                        <div class="cat-item" onclick="openService('taksi')"><div class="cat-icon">🚖</div><div class="cat-label">Taksi Hyzmaty</div></div>
-                        <div class="cat-item" onclick="openService('sowgat')"><div class="cat-icon">🎁</div><div class="cat-label">Sowgat Hyzmaty</div></div>
-                        <div class="cat-item" onclick="openService('bilet')"><div class="cat-icon">✈️</div><div class="cat-label">Awiabilet</div></div>
-                        <div class="cat-item" onclick="openService('okuw')"><div class="cat-icon">🎓</div><div class="cat-label">Okuw Kömegi</div></div>
-                        <div class="cat-item" onclick="openService('dokument')"><div class="cat-icon">📄</div><div class="cat-label">Dokument</div></div>
-                    </div>
+                <div id="grid-view" class="cat-grid">
+                    <div class="cat-item" onclick="viewS('Kargo', '📦')"><div class="cat-icon">📦</div><div class="cat-label">Kargo</div></div>
+                    <div class="cat-item" onclick="viewS('Perevod', '💸')"><div class="cat-icon">💸</div><div class="cat-label">Perevod</div></div>
+                    <div class="cat-item" onclick="viewS('Iş', '💼')"><div class="cat-icon">💼</div><div class="cat-label">Iş</div></div>
+                    <div class="cat-item" onclick="viewS('Taksi', '🚖')"><div class="cat-icon">🚖</div><div class="cat-label">Taksi</div></div>
+                    <div class="cat-item" onclick="viewS('Sowgat', '🎁')"><div class="cat-icon">🎁</div><div class="cat-label">Sowgat</div></div>
+                    <div class="cat-item" onclick="viewS('Bilet', '✈️')"><div class="cat-icon">✈️</div><div class="cat-label">Bilet</div></div>
+                    <div class="cat-item" onclick="viewS('Okuw', '🎓')"><div class="cat-icon">🎓</div><div class="cat-label">Okuw</div></div>
+                    <div class="cat-item" onclick="viewS('Dokument', '📄')"><div class="cat-icon">📄</div><div class="cat-label">Dokument</div></div>
                 </div>
-
-                <div id="cat-detail" style="display:none;">
-                    <button onclick="closeService()" style="background:none; border:none; color:var(--primary); font-weight:800; font-size:14px; margin-bottom:20px; cursor:pointer;">← ÄHLI HYZMATLAR</button>
-                    <div id="detail-content"></div>
+                <div id="detail-view" style="display:none;">
+                    <button onclick="hideS()" style="background:none; border:none; color:var(--primary); font-weight:800; cursor:pointer; padding:10px 0;">← YZA GAÝT</button>
+                    <div id="detail-area"></div>
                 </div>
             </div>
 
             <div id="habar" class="page">
-                <div class="news-filter">
-                    <button class="filter-btn active" onclick="filterNews('all', this)">Hemmesi</button>
-                    <button class="filter-btn" onclick="filterNews('resmi', this)">Resmi</button>
-                    <button class="filter-btn" onclick="filterNews('sport', this)">Sport</button>
-                    <button class="filter-btn" onclick="filterNews('tehno', this)">Tehno</button>
-                </div>
-                <div id="news-list"></div>
+                <div class="card"><h3>Sport</h3><p>Türkmenistanyň futbol çempionaty dowam edýär.</p></div>
+                <div class="card"><h3>Tehnologiýa</h3><p>Emeli intellekt dünýäni üýtgetmäge dowam edýär.</p></div>
             </div>
 
             <div id="profil" class="page">
-                <div class="card" style="text-align:center; padding:40px 20px;">
-                    <div style="font-size:60px; margin-bottom:20px;">👤</div>
-                    <h2>Şahsy Hasap</h2>
-                    <p style="color:#64748b; font-size:14px; margin-bottom:30px;">Bildiriş goşmak we dolandyrmak üçin agza boluň.</p>
-                    <div style="text-align:left;"><label class="field-label">Telefon belgiňiz</label><input type="tel" class="app-input" placeholder="+993..."></div>
-                    <button class="btn-action">GIRIŞ ET</button>
+                <div class="card" style="text-align:center;">
+                    <div style="font-size:50px; margin-bottom:10px;">👤</div>
+                    <h2 id="prof-text">Agza boluň</h2>
+                    <button class="btn-call">Giriş Et</button>
                 </div>
             </div>
         </div>
-
         <nav class="nav-bar">
-            <div class="nav-item active" onclick="showPage('kurs', this)"><span class="nav-icon">📊</span><span class="n-txt">Kurs</span></div>
-            <div class="nav-item" onclick="showPage('bildirish', this)"><span class="nav-icon">📦</span><span class="n-txt">Hyzmatlar</span></div>
-            <div class="nav-item" onclick="showPage('habar', this)"><span class="nav-icon">📰</span><span class="n-txt">Habarlar</span></div>
-            <div class="nav-item" onclick="showPage('profil', this)"><span class="nav-icon">👤</span><span class="n-txt">Profil</span></div>
+            <div class="nav-item active" onclick="goPage('kurs', this)"><span class="nav-icon">📊</span><span class="n-t">Kurs</span></div>
+            <div class="nav-item" onclick="goPage('bildirish', this)"><span class="nav-icon">📦</span><span class="n-t">Hyzmatlar</span></div>
+            <div class="nav-item" onclick="goPage('habar', this)"><span class="nav-icon">📰</span><span class="n-t">Habarlar</span></div>
+            <div class="nav-item" onclick="goPage('profil', this)"><span class="nav-icon">👤</span><span class="n-t">Profil</span></div>
         </nav>
     </div>
 
     <script>
-        // HYZMATLAR MAGLUMATY
-        const serviceData = {
-            kargo: { title: "Kargo (Ýük Daşama)", content: <div class="card"><h3>📦 Moskwa - Aşgabat</h3><p>Her penşenbe ugraýar. 1 kg = 250 ₽.</p><button class="btn-action">JAŇ ET</button></div><div class="card"><h3>📦 Piter - Mary</h3><p>Amatly nyrhlar. 15 gün içinde eltýäris.</p><button class="btn-action">HABARLAŞMAK</button></div> },
-            ish: { title: "Iş we Işgär", content: <div class="sub-nav"><button class="sub-btn active">Iş Gözleýärin</button><button class="sub-btn">Iş Berýärin</button></div><div class="card"><h3>👨‍🔧 Gurluşykçy Gerek</h3><p>Moskwa şäheri, aýlyk 100-120 müň ₽. Ýatak jaý bar.</p><button class="btn-action">GÖRMÜŞ</button></div> },
-            taksi: { title: "Taksi Hyzmaty", content: <div class="card"><h3>🚖 Moskwa - Kazan</h3><p>Ertir sagat 08:00-da 2 adamlyk ýer bar.</p><button class="btn-action">BRON ET</button></div> },
-            perevod: { title: "Pul Perevod", content: <div class="card"><h3>💸 Tiz Perevod</h3><p>Russiýadan Türkmenistana (Karta/Nagt). Nyrh: 19.50.</p><button class="btn-action">HASAPLA</button></div> },
-            okuw: { title: "Okuw Kömegi", content: <div class="card"><h3>🎓 Uniwersitet Saýlamak</h3><p>Russiýanyň döwlet uniwersitetlerine girmäge kömek edýäris.</p><button class="btn-action">MAGLUMAT AL</button></div> },
-            dokument: { title: "Dokument Kömegi", content: <div class="card"><h3>📄 Pasport Uzaltmak</h3><p>Gerekli resminamalaryň sanawy we konsullyk kömegi.</p><button class="btn-action">GÖRMÜŞ</button></div> }
+        const ui = {
+            tk: { title: "Kurs", n1: "Kurs", n2: "Hyzmatlar", n3: "Habarlar", n4: "Profil", p: "Agza boluň" },
+            tr: { title: "Kur", n1: "Kur", n2: "Hizmetler", n3: "Haberler", n4: "Profil", p: "Üye Olun" },
+            ru: { title: "Валюта", n1: "Валюта", n2: "Услуги", n3: "Новости", n4: "Профиль", p: "Войти" }
         };
 
-        // HABARLAR MAGLUMATY
-        const newsItems = [
-            { cat: 'resmi', title: 'Täze Migrasiýa Kanuny', desc: 'Russiýada migrantlar üçin täze düzgünler 2026-njy ýylda güýje girer.' },
-            { cat: 'sport', title: 'Türkmenistan - Eýran oýny', desc: 'Milli ýygyndymyz Aziýa Kubogyna taýýarlyk görýär.' },
-            { cat: 'tehno', title: 'iPhone 17 Pro Max', desc: 'Täze modelde AI tehnologiýalary has kämil bolar.' }
-        ];
-
-        function startApp(l) {
-            localStorage.setItem('lang', l);
+        function initApp(lang) {
             document.getElementById('lang-screen').style.display = 'none';
             document.getElementById('main-app').style.display = 'block';
-            updateNews('all');
+            
+            const t = ui[lang];
+            document.getElementById('header-title').innerText = t.title;
+            document.getElementById('prof-text').innerText = t.p;
+            const labels = document.querySelectorAll('.n-t');
+            labels[0].innerText = t.n1; labels[1].innerText = t.n2; labels[2].innerText = t.n3; labels[3].innerText = t.n4;
+            localStorage.setItem('userLang', lang);
         }
 
-        function showPage(id, el) {
+        function goPage(id, el) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             el.classList.add('active');
-            window.scrollTo(0,0);
+            
+            const lang = localStorage.getItem('userLang') || 'tk';
+            const keys = { kurs: 'n1', bildirish: 'n2', habar: 'n3', profil: 'n4' };
+            document.getElementById('header-title').innerText = ui[lang][keys[id]];
         }
 
-        function openService(key) {
-            const data = serviceData[key] || { title: "Hyzmat", content: "<p>Häzirlikçe bildiriş ýok.</p>" };
-            document.getElementById('cat-main').style.display = 'none';
-            document.getElementById('cat-detail').style.display = 'block';
-            document.getElementById('detail-content').innerHTML = <h2>${data.title}</h2>${data.content};
+        function viewS(name, icon) {
+            document.getElementById('grid-view').style.display = 'none';
+            document.getElementById('detail-view').style.display = 'block';
+            document.getElementById('detail-area').innerHTML = 
+                <div class="card">
+                    <div style="font-size:40px; text-align:center;">${icon}</div>
+                    <h2 style="text-align:center;">${name}</h2>
+                    <p style="text-align:center; color:#64748b;">Şu wagtma çenli tassyklanan bildiriş ýok. Admin bilen habarlaşyň.</p>
+                    <button class="btn-call">TÄZE BILDIRIŞ GOŞ</button>
+                </div>;
         }
 
-        function closeService() {
-            document.getElementById('cat-main').style.display = 'grid';
-            document.getElementById('cat-detail').style.display = 'none';
+        function hideS() {
+            document.getElementById('grid-view').style.display = 'grid';
+            document.getElementById('detail-view').style.display = 'none';
         }
 
-        function filterNews(cat, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            updateNews(cat);
-        }
-
-        function updateNews(cat) {
-            const list = document.getElementById('news-list');
-            const filtered = cat === 'all' ? newsItems : newsItems.filter(n => n.cat === cat);
-            list.innerHTML = filtered.map(n => <div class="card"><span style="color:var(--accent); font-size:10px; font-weight:800;">${n.cat.toUpperCase()}</span><h3 style="margin:8px 0;">${n.title}</h3><p style="font-size:13px; color:#64748b;">${n.desc}</p></div>).join('');
-        }
-
-        function calc(type) {
+        function runCalc(type) {
             const vUSD = parseFloat(document.getElementById('vUSD').value) || 0;
             const vTMT = parseFloat(document.getElementById('vTMT').value) || 0;
-            const iRUB = document.getElementById('iRUB'), iTMT = document.getElementById('iTMT');
+            const iRUB = document.getElementById('iRUB'), iTMT = document.getElementById('iTMT'), iUSD = document.getElementById('iUSD');
+
             let rub = 0;
-            if(type === 'RUB') rub = parseFloat(iRUB.value) || 0;
-            else if(type === 'TMT') rub = (parseFloat(iTMT.value) || 0) * vTMT;
-            iRUB.value = type !== 'RUB' ? rub.toFixed(2) : iRUB.value;
-            iTMT.value = type !== 'TMT' ? (rub / vTMT).toFixed(2) : iTMT.value;
+            if (type === 'RUB') rub = parseFloat(iRUB.value) || 0;
+            else if (type === 'TMT') rub = (parseFloat(iTMT.value) || 0) * vTMT;
+            else if (type === 'USD') rub = (parseFloat(iUSD.value) || 0) * vUSD;
+
+            if (type !== 'RUB') iRUB.value = rub ? rub.toFixed(2) : "";
+            if (type !== 'TMT') iTMT.value = rub ? (rub / vTMT).toFixed(2) : "";
+            if (type !== 'USD') iUSD.value = rub ? (rub / vUSD).toFixed(2) : "";
         }
     </script>
 </body>

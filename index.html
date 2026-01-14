@@ -66,25 +66,6 @@
     <div class="app-shell" id="main-app">
         <header><h1 id="header-title">Kurs</h1></header>
 
-        <section id="kurs" class="page active">
-            <div class="card">
-                <div style="display: flex; gap: 5px; margin-bottom: 15px;">
-                    <input type="number" id="rUSD" value="19.50" oninput="calc()">
-                    <input type="number" id="rRUB" value="0.21" oninput="calc()">
-                </div>
-                <input type="number" class="kurs-input" id="iRUB" placeholder="RUB" oninput="calc('RUB')">
-                <input type="number" class="kurs-input" id="iTMT" placeholder="TMT" oninput="calc('TMT')" style="border-color: var(--primary);">
-                <input type="number" class="kurs-input" id="iUSD" placeholder="USD" oninput="calc('USD')">
-            </div>
-        </section>
-
-        <section id="bildirish" class="page">
-            <div id="service-list"></div>
-        </section>
-
-        <section id="habar" class="page">
-            <div id="news-list"></div>
-        </section>
         <section id="profil" class="page">
             <div class="card" style="text-align: center;">
                 <h3 id="prof-text">Agza boluň</h3>
@@ -92,6 +73,61 @@
                 <button class="lang-btn" style="background: var(--primary); width: 100%; border: none;">SMS Ugrat</button>
             </div>
         </section>
+
+        <nav class="nav-bar">
+            <div class="nav-item active" onclick="nav('kurs', this)"><span class="nav-icon">📊</span><span class="nav-label">Kurs</span></div>
+            <div class="nav-item" onclick="nav('bildirish', this)"><span class="nav-icon">📢</span><span class="nav-label">Bildirişler</span></div>
+            <div class="nav-item" onclick="nav('habar', this)"><span class="nav-icon">📰</span><span class="nav-label">Habarlar</span></div>
+            <div class="nav-item" onclick="nav('profil', this)"><span class="nav-icon">👤</span><span class="nav-label">Profil</span></div>
+        </nav>
+    </div>
+
+    <script>
+        const translations = {
+            tk: { kurs: "Kurs", bildirish: "Bildirişler", habar: "Habarlar", profil: "Profil", welcome: "Hoş geldiňiz" },
+            ru: { kurs: "Курс", bildirish: "Объявления", habar: "Новости", profil: "Профиль", welcome: "Добро пожаловать" },
+            tr: { kurs: "Kur", bildirish: "İlanlar", habar: "Haberler", profil: "Profil", welcome: "Hoş geldiniz" }
+        };
+
+        function setLang(lang) {
+            localStorage.setItem('myLang', lang);
+            document.getElementById('lang-screen').style.display = 'none';
+            document.getElementById('main-app').style.display = 'block';
+            updateText(lang);
+        }
+
+        function updateText(lang) {
+            const t = translations[lang];
+            document.getElementById('header-title').innerText = t.kurs;
+            const labels = document.querySelectorAll('.nav-label');
+            labels[0].innerText = t.kurs; labels[1].innerText = t.bildirish;
+            labels[2].innerText = t.habar; labels[3].innerText = t.profil;
+        }
+
+        function nav(id, el) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            el.classList.add('active');
+            const lang = localStorage.getItem('myLang') || 'tk';
+            document.getElementById('header-title').innerText = translations[lang][id];
+        }
+
+        function calc(type) {
+            const rUSD = +document.getElementById('rUSD').value, rRUB = +document.getElementById('rRUB').value;
+            const iRUB = document.getElementById('iRUB'), iTMT = document.getElementById('iTMT'), iUSD = document.getElementById('iUSD');
+            let tmt = 0;
+            if(type === 'TMT') tmt = +iTMT.value;
+            else if(type === 'RUB') tmt = +iRUB.value * rRUB;
+            else if(type === 'USD') tmt = +iUSD.value * rUSD;
+
+            if(type !== 'TMT') iTMT.value = tmt ? tmt.toFixed(2) : "";
+            if(type !== 'RUB') iRUB.value = tmt ? (tmt / rRUB).toFixed(2) : "";
+            if(type !== 'USD') iUSD.value = tmt ? (tmt / rUSD).toFixed(2) : "";
+        }
+    </script>
+</body>
+</html>
 
         <nav class="nav-bar">
             <div class="nav-item active" onclick="nav('kurs', this)"><span class="nav-icon">📊</span><span class="nav-label">Kurs</span></div>

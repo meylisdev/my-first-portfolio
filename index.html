@@ -3,204 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Milli Super App</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    
+    <title>Milli Super App | v6.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #10b981;
-            --bg: #f8fafc;
-            --dark: #0f172a;
-            --card-bg: #ffffff;
-        }
-
+        :root { --primary: #10b981; --bg: #f4f7f6; --dark: #0f172a; --white: #ffffff; }
         * { box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg); margin: 0; padding: 0; color: var(--dark); overflow-x: hidden; }
+        body { background: var(--bg); margin: 0; padding: 0; color: var(--dark); }
 
-        /* DIL SAÝLAMA (SPLASH) SCREEN */
+        /* SPLASH SCREEN */
         #lang-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%);
             z-index: 10000; display: flex; align-items: center; justify-content: center;
         }
-        .lang-card { width: 85%; max-width: 350px; text-align: center; color: white; }
+        .lang-card { width: 85%; max-width: 360px; text-align: center; color: white; }
+        .welcome-text { font-size: 28px; font-weight: 800; margin-bottom: 40px; letter-spacing: 2px; }
         .lang-btn { 
-            width: 100%; padding: 18px; margin: 10px 0; border-radius: 18px; border: none; 
-            background: white; color: var(--dark); font-weight: 800; font-size: 16px; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2); transition: 0.3s; cursor: pointer;
+            width: 100%; padding: 18px; margin: 10px 0; border-radius: 20px; border: none; 
+            background: var(--white); color: var(--dark); font-weight: 700; cursor: pointer;
         }
 
-        /* MAIN APP STRUCTURE */
-        #main-app { display: none; }
-        header { 
-            background: var(--dark); color: white; padding: 50px 20px 30px; 
-            border-bottom-left-radius: 35px; border-bottom-right-radius: 35px; 
-            position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-
-        .content { padding: 25px 18px 120px 18px; max-width: 500px; margin: 0 auto; }
+        /* HEADER & CONTENT */
+        header { background: var(--dark); color: white; padding: 50px 20px 25px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; position: sticky; top: 0; z-index: 100; }
+        .content { padding: 20px 15px 120px; max-width: 500px; margin: 0 auto; }
         .page { display: none; }
-        .page.active { display: block; animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .page.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* KURS BÖLÜMI COMPONENTS */
-        .kurs-card { background: var(--card-bg); border-radius: 28px; overflow: hidden; box-shadow: 0 12px 30px rgba(0,0,0,0.06); margin-bottom: 20px; }
-        .nagt-header { background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 25px; color: white; }
-        .bank-info { padding: 15px 25px; background: #f1f5f9; display: flex; justify-content: space-between; font-size: 12px; font-weight: 800; color: #64748b; }
+        /* KURS & CARDS */
+        .card { background: var(--white); border-radius: 25px; padding: 20px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); border: none; }
+        .nagt-box { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border-radius: 25px; overflow: hidden; margin-bottom: 20px; }
         
-        .input-group { background: var(--card-bg); padding: 20px; border-radius: 24px; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
-        .input-group label { display: block; font-size: 11px; font-weight: 800; color: #94a3b8; margin-bottom: 10px; text-transform: uppercase; }
-        .input-field { 
-            width: 100%; border: none; background: #f8fafc; padding: 18px; 
-            border-radius: 16px; font-size: 22px; font-weight: 700; outline: none; color: var(--dark);
-        }
+        /* CATEGORY GRID */
+        .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .cat-item { background: white; padding: 20px; border-radius: 20px; text-align: center; cursor: pointer; border: 1px solid #edf2f7; }
+        .cat-item:active { transform: scale(0.96); background: #f0fdf4; }
+        .cat-icon { font-size: 28px; margin-bottom: 8px; }
+        .cat-label { font-size: 12px; font-weight: 700; color: #475569; }
+
+        /* NEWS TABS */
+        .news-filter { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 15px; scrollbar-width: none; }
+        .filter-btn { padding: 8px 18px; background: white; border-radius: 12px; border: none; font-size: 12px; font-weight: 600; white-space: nowrap; cursor: pointer; }
+        .filter-btn.active { background: var(--primary); color: white; }
 
         /* NAV BAR */
-        .nav-bar { 
-            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); 
-            width: 92%; max-width: 420px; background: rgba(15, 23, 42, 0.98); 
-            backdrop-filter: blur(20px); border-radius: 30px; display: flex; 
-            padding: 12px 8px; z-index: 1000; box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
+        .nav-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; background: rgba(15, 23, 42, 0.98); backdrop-filter: blur(15px); border-radius: 25px; display: flex; padding: 12px; z-index: 1000; }
         .nav-item { flex: 1; text-align: center; color: #64748b; font-size: 10px; font-weight: 600; cursor: pointer; }
         .nav-item.active { color: var(--primary); }
-        .nav-icon { font-size: 22px; display: block; margin-bottom: 4px; }
-
-        .item-card { background: white; border-radius: 24px; padding: 20px; margin-bottom: 15px; }
-        .btn-action { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 15px; font-weight: 700; margin-top: 10px; cursor: pointer; }
+        .nav-icon { font-size: 20px; display: block; margin-bottom: 4px; }
+        
+        /* INPUTS */
+        .field-label { font-size: 10px; font-weight: 800; color: #94a3b8; margin-bottom: 8px; display: block; }
+        .app-input { width: 100%; border: none; background: #f1f5f9; padding: 15px; border-radius: 12px; font-size: 18px; font-weight: 700; outline: none; }
     </style>
 </head>
 <body>
     <div id="lang-screen">
         <div class="lang-card">
-            <h1 style="margin-bottom: 40px; letter-spacing: 2px; font-weight: 800;">HOŞ GELDIŇIZ</h1>
-            <button class="lang-btn" onclick="setLang('tk')">TÜRKMEN DILI</button>
-            <button class="lang-btn" onclick="setLang('ru')">РУССКИЙ ЯЗЫК</button>
-            <button class="lang-btn" onclick="setLang('tr')">TÜRKÇE</button>
+            <div class="welcome-text">HOŞ GELDIŇIZ</div>
+            <button class="lang-btn" onclick="startApp('tk')">Türkmen dili</button>
+            <button class="lang-btn" onclick="startApp('ru')">Русский язык</button>
+            <button class="lang-btn" onclick="startApp('tr')">Türkçe</button>
         </div>
     </div>
 
     <div id="main-app">
-        <header><h1 id="page-title" style="margin: 0; font-size: 26px; font-weight: 800;">Kurs</h1></header>
+        <header><h1 id="header-title" style="margin:0; font-size:24px;">Kurs</h1></header>
 
         <div class="content">
             <div id="kurs" class="page active">
-                <div class="kurs-card">
-                    <div class="nagt-header">
-                        <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:800; opacity:0.8; margin-bottom:20px;">
-                            <span>⚡ WALYUTAÇY (NAGT BAZAR)</span>
-                            <span style="background:rgba(255,255,255,0.2); padding:3px 10px; border-radius:10px;">AKTUAL</span>
+                <div class="nagt-box">
+                    <div style="padding:20px;">
+                        <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:800; opacity:0.8; margin-bottom:15px;">
+                            <span>⚡ WALYUTAÇY (NAGT)</span>
+                            <span>AKTUAL</span>
                         </div>
                         <div style="display:flex; gap:10px; text-align:center;">
                             <div style="flex:1;">
-                                <div style="font-size:10px; opacity:0.7; margin-bottom:5px;">$1 (Walyutaçy)</div>
-                                <input type="number" id="vUSD" value="82.00" oninput="calc('RUB')" style="width:100%; border:none; background:none; color:white; font-size:30px; font-weight:900; text-align:center; outline:none;">
-                                <div style="font-size:9px; opacity:0.6;">RUBLE (₽)</div>
+                                <div style="font-size:10px; opacity:0.8;">$1 USD</div>
+                                <input type="number" id="vUSD" value="82.00" oninput="calc('RUB')" style="width:100%; border:none; background:none; color:white; font-size:26px; font-weight:900; text-align:center; outline:none;">
                             </div>
-                            <div style="width:1px; background:rgba(255,255,255,0.2); height:50px; align-self:center;"></div>
+                            <div style="width:1px; background:rgba(255,255,255,0.2); height:40px; align-self:center;"></div>
                             <div style="flex:1;">
-                                <div style="font-size:10px; opacity:0.7; margin-bottom:5px;">1 TMT (Bazar)</div>
-                                <input type="number" id="vTMT" value="4.20" oninput="calc('RUB')" style="width:100%; border:none; background:none; color:white; font-size:30px; font-weight:900; text-align:center; outline:none;">
-                                <div style="font-size:9px; opacity:0.6;">RUBLE (₽)</div>
+                                <div style="font-size:10px; opacity:0.8;">1 TMT</div>
+                                <input type="number" id="vTMT" value="4.20" oninput="calc('RUB')" style="width:100%; border:none; background:none; color:white; font-size:26px; font-weight:900; text-align:center; outline:none;">
                             </div>
                         </div>
                     </div>
-                    <div class="bank-info">
-                        <span>🏦 BANK BAHASY (CBR)</span>
-                        <span style="color: #ef4444;">$1 = 78.57 ₽</span>
+                    <div style="background:rgba(0,0,0,0.1); padding:12px 20px; display:flex; justify-content:space-between; font-size:11px; font-weight:700;">
+                        <span>🏦 BANK (CBR)</span>
+                        <span style="color:#ff8a8a;">$1 = 78.57 ₽</span>
                     </div>
                 </div>
 
-                <div class="input-group">
-                    <label>🇷🇺 RUBL UGRADYLÝAN (₽)</label>
-                    <input type="number" id="iRUB" class="input-field" placeholder="0" oninput="calc('RUB')">
-                </div>
-                <div class="input-group" style="border: 2px solid #10b981; background: #f0fdf4;">
-                    <label style="color: var(--primary);">🇹🇲 MANAT ALYNÝAN (19.50)</label>
-                    <input type="number" id="iTMT" class="input-field" placeholder="0" oninput="calc('TMT')" style="background:transparent;">
-                </div>
-                <div class="input-group">
-                    <label>🇺🇸 DOLLAR ($)</label>
-                    <input type="number" id="iUSD" class="input-field" placeholder="0" oninput="calc('USD')">
-                </div>
+                <div class="card"><label class="field-label">🇷🇺 RUBL (₽)</label><input type="number" id="iRUB" class="app-input" oninput="calc('RUB')" placeholder="0"></div>
+                <div class="card" style="border:2px solid var(--primary);"><label class="field-label" style="color:var(--primary);">🇹🇲 MANAT (TMT)</label><input type="number" id="iTMT" class="app-input" oninput="calc('TMT')" style="background:#f0fdf4;" placeholder="0"></div>
+                <div class="card"><label class="field-label">🇺🇸 DOLLAR ($)</label><input type="number" id="iUSD" class="app-input" oninput="calc('USD')" placeholder="0"></div>
             </div>
 
             <div id="bildirish" class="page">
-                <div class="item-card">
-                    <h3>Moskwa - Aşgabat Kargo</h3>
-                    <p style="font-size:13px; color:#64748b;">Eltip bermek hyzmaty 3-5 gün. 1 kg = 250 rubl.</p>
-                    <button class="btn-action">Habarlaşmak</button>
+                <div class="cat-grid">
+                    <div class="cat-item" onclick="alert('Perevod Bölümi')"><div class="cat-icon">💸</div><div class="cat-label">Pul Perevod</div></div>
+                    <div class="cat-item" onclick="alert('Iş Bölümi')"><div class="cat-icon">💼</div><div class="cat-label">Iş we Işgär</div></div>
+                    <div class="cat-item" onclick="alert('Taksi Bölümi')"><div class="cat-icon">🚖</div><div class="cat-label">Taksi Hyzmaty</div></div>
+                    <div class="cat-item" onclick="alert('Sowgat Bölümi')"><div class="cat-icon">🎁</div><div class="cat-label">Sowgat Hyzmaty</div></div>
+                    <div class="cat-item" onclick="alert('Bilet Bölümi')"><div class="cat-icon">✈️</div><div class="cat-label">Awiabilet</div></div>
+                    <div class="cat-item" onclick="alert('Okuw Bölümi')"><div class="cat-icon">🎓</div><div class="cat-label">Okuw Kömegi</div></div>
+                    <div class="cat-item" style="grid-column: span 2;" onclick="alert('Dokument Bölümi')"><div class="cat-icon">📄</div><div class="cat-label">Dokument Kömegi</div></div>
                 </div>
             </div>
+
             <div id="habar" class="page">
-                <div class="item-card">
-                    <h3>Täze habarlar ýakynda...</h3>
-                    <p style="font-size:13px; color:#64748b;">Türkmenistanda we dünýäde bolup geçýän täzelikler.</p>
+                <div class="news-filter">
+                    <button class="filter-btn active">Hemmesi</button>
+                    <button class="filter-btn">Resmi</button>
+                    <button class="filter-btn">Sport</button>
+                    <button class="filter-btn">Tehno</button>
+                    <button class="filter-btn">Dünýä</button>
+                </div>
+                <div id="news-feed">
+                    <div class="card">
+                        <span style="font-size:10px; color:var(--primary); font-weight:800;">SPORT</span>
+                        <h3 style="margin:10px 0; font-size:16px;">Türkmenistanyň ýygyndysy täze ýeňiş gazandy!</h3>
+                        <p style="font-size:12px; color:#64748b;">Aşgabatda geçirilen ýaryşda türgenlerimiz 1-nji orny aldy.</p>
+                    </div>
+                    <div class="card">
+                        <span style="font-size:10px; color:#3b82f6; font-weight:800;">TEHNO</span>
+                        <h3 style="margin:10px 0; font-size:16px;">Täze iPhone 17 barada ilkinji maglumatlar</h3>
+                        <p style="font-size:12px; color:#64748b;">Tehnologiýa äleminde täze döwür başlaýar.</p>
+                    </div>
                 </div>
             </div>
 
             <div id="profil" class="page">
-                <div class="item-card" style="text-align:center;">
-                    <div style="font-size:50px; margin-bottom:20px;">👤</div>
-                    <h2 id="prof-welcome">Hoş geldiňiz</h2>
-                    <input type="tel" class="input-field" placeholder="+993..." style="text-align:center; margin-bottom:15px;">
-                    <button class="btn-action">SMS Tassyklama</button>
+                <div class="card" style="text-align:center; padding:40px 20px;">
+                    <div style="font-size:60px; margin-bottom:15px;">👤</div>
+                    <h2 style="margin-bottom:10px;">Giriş we Hasap</h2>
+                    <p style="color:#64748b; font-size:13px; margin-bottom:25px;">Bildiriş goşmak üçin agza boluň.</p>
+                    <input type="tel" class="app-input" placeholder="+993..." style="text-align:center; margin-bottom:15px;">
+                    <button style="width:100%; padding:15px; border-radius:12px; background:var(--primary); color:white; border:none; font-weight:700;">Giriş</button>
                 </div>
             </div>
         </div>
 
         <nav class="nav-bar">
-            <div class="nav-item active" onclick="switchPage('kurs', this)"><span class="nav-icon">📊</span><span class="n-txt">Kurs</span></div>
-            <div class="nav-item" onclick="switchPage('bildirish', this)"><span class="nav-icon">📢</span><span class="n-txt">Bildirişler</span></div>
-            <div class="nav-item" onclick="switchPage('habar', this)"><span class="nav-icon">📰</span><span class="n-txt">Habarlar</span></div>
-            <div class="nav-item" onclick="switchPage('profil', this)"><span class="nav-icon">👤</span><span class="n-txt">Profil</span></div>
+            <div class="nav-item active" onclick="nav('kurs', this)"><span class="nav-icon">📊</span><span class="n-txt">Kurs</span></div>
+            <div class="nav-item" onclick="nav('bildirish', this)"><span class="nav-icon">📢</span><span class="n-txt">Bildirişler</span></div>
+            <div class="nav-item" onclick="nav('habar', this)"><span class="nav-icon">📰</span><span class="n-txt">Habarlar</span></div>
+            <div class="nav-item" onclick="nav('profil', this)"><span class="nav-icon">👤</span><span class="n-txt">Profil</span></div>
         </nav>
     </div>
 
     <script>
-        const langData = {
-            tk: { kurs: "Kurs", bild: "Bildirişler", hab: "Habarlar", prof: "Profil", welcome: "Hoş geldiňiz" },
-            ru: { kurs: "Валюта", bild: "Объявления", hab: "Новости", prof: "Профиль", welcome: "Добро пожаловать" },
-            tr: { kurs: "Döviz", bild: "İlanlar", hab: "Haberler", prof: "Profil", welcome: "Hoş geldiniz" }
+        const langs = {
+            tk: { kurs: "Kurs", bild: "Hyzmatlar", habar: "Habarlar", prof: "Profil" },
+            ru: { kurs: "Курс", bild: "Услуги", habar: "Новости", prof: "Профиль" },
+            tr: { kurs: "Kur", bild: "Hizmetler", habar: "Haberler", prof: "Profil" }
         };
 
-        function setLang(lang) {
-            localStorage.setItem('userLang', lang);
+        function startApp(l) {
+            localStorage.setItem('myLang', l);
             document.getElementById('lang-screen').style.display = 'none';
             document.getElementById('main-app').style.display = 'block';
-            applyLang(lang);
+            updateUI(l);
         }
 
-        function applyLang(l) {
-            const t = langData[l];
-            document.getElementById('page-title').innerText = t.kurs;
-            document.getElementById('prof-welcome').innerText = t.welcome;
-            const labels = document.querySelectorAll('.n-txt');
-            labels[0].innerText = t.kurs; labels[1].innerText = t.bild;
-            labels[2].innerText = t.hab; labels[3].innerText = t.prof;
+        function updateUI(l) {
+            const t = langs[l];
+            document.getElementById('header-title').innerText = t.kurs;
+            const navs = document.querySelectorAll('.n-txt');
+            navs[0].innerText = t.kurs; navs[1].innerText = t.bild; navs[2].innerText = t.habar; navs[3].innerText = t.prof;
         }
-
-        function switchPage(id, el) {
+        function nav(id, el) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             el.classList.add('active');
-            
-            const l = localStorage.getItem('userLang') || 'tk';
-            const map = { kurs: 'kurs', bildirish: 'bild', habar: 'hab', profil: 'prof' };
-            document.getElementById('page-title').innerText = langData[l][map[id]];
+            const l = localStorage.getItem('myLang') || 'tk';
+            document.getElementById('header-title').innerText = langs[l][id === 'bildirish' ? 'bild' : id === 'habar' ? 'habar' : id === 'profil' ? 'prof' : 'kurs'];
         }
 
         function calc(type) {
             const vUSD = parseFloat(document.getElementById('vUSD').value) || 0;
             const vTMT = parseFloat(document.getElementById('vTMT').value) || 0;
             const iRUB = document.getElementById('iRUB'), iTMT = document.getElementById('iTMT'), iUSD = document.getElementById('iUSD');
-
             let rub = 0;
             if(type === 'RUB') rub = parseFloat(iRUB.value) || 0;
             else if(type === 'TMT') rub = (parseFloat(iTMT.value) || 0) * vTMT;
             else if(type === 'USD') rub = (parseFloat(iUSD.value) || 0) * vUSD;
-
             if(type !== 'RUB') iRUB.value = rub ? rub.toFixed(2) : "";
             if(type !== 'TMT') iTMT.value = rub ? (rub / vTMT).toFixed(2) : "";
             if(type !== 'USD') iUSD.value = rub ? (rub / vUSD).toFixed(2) : "";

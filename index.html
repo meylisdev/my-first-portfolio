@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bazar Nyrhy | RU-TM</title>
+    
     <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Bazar Nyrhy">
-<link rel="apple-touch-icon" href="me.jpg">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Bazar Nyrhy">
+    <link rel="apple-touch-icon" href="me.jpg">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <title>Bazar Nyrhy | RU-TM</title>
+    
     <style>
         * { box-sizing: border-box; transition: 0.3s; }
         
         body { 
-            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto;
             background: linear-gradient(135deg, #064e3b 0%, #1e293b 100%); 
             margin: 0; 
             padding: 15px;
@@ -31,7 +35,6 @@
             align-self: center;
         }
 
-        /* BAÝDAKLAR BÖLÜMI */
         .flags-wrapper {
             display: flex;
             align-items: center;
@@ -62,7 +65,6 @@
             letter-spacing: -1px;
         }
 
-        /* ADMIN SECTION */
         .admin-panel {
             background: #f8fafc;
             padding: 15px;
@@ -85,7 +87,6 @@
             color: #064e3b;
         }
 
-        /* INPUTS */
         .currency-box {
             margin-bottom: 15px;
             background: #ffffff;
@@ -135,7 +136,6 @@
     </style>
 </head>
 <body>
-
     <div class="app-card">
         <div class="flags-wrapper">
             <div class="flag">
@@ -147,6 +147,7 @@
             </div>
             
             <div class="vs-text">&</div>
+
             <div class="flag">
                 <svg viewBox="0 0 30 20">
                     <rect width="30" height="20" fill="#00732f"/>
@@ -186,9 +187,7 @@
             <input type="number" id="iTRY" placeholder="0" oninput="calc('TRY')">
         </div>
 
-        <a href="https://wa.me/79XXXXXXXXX" class="btn-wa">
-            Habarlaşmak
-        </a>
+        <a href="https://wa.me/79XXXXXXXXX" class="btn-wa">Habarlaşmak</a>
     </div>
 
     <script>
@@ -197,7 +196,8 @@
             const rRUB = parseFloat(document.getElementById('rRUB').value) || 0;
             const rTRY = parseFloat(document.getElementById('rTRY').value) || 0;
             
-            const iUSD = document.getElementById('iUSD'), iRUB = document.getElementById('iTMT'), iTRY = document.getElementById('iTRY');
+            const iUSD = document.getElementById('iUSD'), iRUB = document.getElementById('iRUB');
+            const iTMT = document.getElementById('iTMT'), iTRY = document.getElementById('iTRY');
 
             let tmt = 0;
             if(type === 'TMT') tmt = parseFloat(iTMT.value) || 0;

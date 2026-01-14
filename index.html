@@ -3,212 +3,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bazar & Media</title>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Bazar Nyrhy">
-    <link rel="apple-touch-icon" href="me.jpg">
-    <meta name="mobile-web-app-capable" content="yes">
-
-    <title>Bazar Nyrhy | RU-TM</title>
     
     <style>
-        * { box-sizing: border-box; transition: 0.3s; }
+        :root {
+            --primary: #10b981;
+            --glass: rgba(255, 255, 255, 0.95);
+            --bg: #0f172a;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body { 
-            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto;
-            background: linear-gradient(135deg, #064e3b 0%, #1e293b 100%); 
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background: radial-gradient(circle at top left, #064e3b, #0f172a);
             margin: 0; 
-            padding: 15px;
+            padding: 0;
             display: flex;
             justify-content: center;
             min-height: 100vh;
-        }
-
-        .app-card {
-            width: 100%;
-            max-width: 400px;
-            background: #ffffff;
-            border-radius: 35px;
-            padding: 30px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
-            align-self: center;
-        }
-
-        .flags-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: space-evenly;
-            margin-bottom: 25px;
-        }
-
-        .flag {
-            width: 80px;
-            height: 50px;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border: 1px solid #eee;
-        }
-
-        .vs-text {
-            font-weight: 900;
-            color: #d1d5db;
-            font-size: 18px;
-        }
-
-        h2 { 
-            text-align: center;
-            margin: 0 0 25px 0; 
-            color: #1e293b; 
-            font-size: 24px; 
-            letter-spacing: -1px;
-        }
-
-        .admin-panel {
-            background: #f8fafc;
-            padding: 15px;
-            border-radius: 20px;
-            margin-bottom: 25px;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 8px;
-            border: 1px solid #f1f5f9;
-        }
-
-        .admin-panel label { font-size: 10px; font-weight: 800; color: #64748b; text-transform: uppercase; }
-        .admin-panel input { 
-            width: 100%; 
-            border: 1px solid #e2e8f0; 
-            padding: 8px; 
-            border-radius: 10px; 
-            text-align: center; 
-            font-weight: bold;
-            color: #064e3b;
-        }
-
-        .currency-box {
-            margin-bottom: 15px;
-            background: #ffffff;
-            padding: 15px;
-            border-radius: 20px;
-            border: 2px solid #f1f5f9;
-        }
-
-        .currency-box:focus-within {
-            border-color: #10b981;
-            transform: translateY(-2px);
-        }
-
-        .currency-box label { 
-            font-size: 12px; 
-            font-weight: 700; 
-            color: #94a3b8; 
-            display: flex; 
-            align-items: center; 
-            gap: 8px;
-        }
-
-        .currency-box input {
-            width: 100%;
-            border: none;
-            background: transparent;
-            font-size: 24px;
-            font-weight: 800;
             color: #1e293b;
-            outline: none;
-            padding-top: 5px;
         }
 
-        .btn-wa {
+        /* Esasy App Gabygy */
+        .app-shell {
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+            padding: 20px 20px 100px 20px;
+        }
+
+        /* Sahypalar */
+        .page { display: none; animation: fadeIn 0.5s ease; }
+        .page.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Glass Card Style */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+            margin-bottom: 20px;
+        }
+
+        /* Baýdak dizaýny */
+        .header-ui { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding: 0 10px; }
+        .flag-pill { background: #064e3b; padding: 5px 15px; border-radius: 50px; display: flex; gap: 8px; align-items: center; box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3); }
+
+        /* Inputlar */
+        .input-box {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 12px;
+            border: 1.5px solid #e2e8f0;
+        }
+        .input-box label { font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; display: block; }
+        .input-box input { width: 100%; border: none; background: transparent; font-size: 22px; font-weight: 700; outline: none; color: #0f172a; }
+
+        /* Habar Kartlary */
+        .news-card {
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .news-content { padding: 15px; }
+        .news-tag { background: #10b981; color: white; font-size: 10px; padding: 3px 10px; border-radius: 5px; font-weight: bold; }
+        
+        /* Audio Button */
+        .audio-btn {
+            background: #38bdf8;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #25D366;
-            color: white;
-            text-decoration: none;
-            padding: 18px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 16px;
-            margin-top: 15px;
+            gap: 10px;
+            cursor: pointer;
         }
+
+        /* ASHAKY MENÝU (Navigation) */
+        .nav-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 40px);
+            max-width: 380px;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            z-index: 1000;
+        }
+        .nav-item { color: #94a3b8; text-decoration: none; font-size: 12px; display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; }
+        .nav-item.active { color: #10b981; }
+        .nav-icon { font-size: 20px; }
+
     </style>
 </head>
 <body>
-    <div class="app-card">
-        <div class="flags-wrapper">
-            <div class="flag">
-                <svg viewBox="0 0 9 6">
-                    <rect width="9" height="2" fill="#fff"/>
-                    <rect width="9" height="2" y="2" fill="#0039a6"/>
-                    <rect width="9" height="2" y="4" fill="#d52b1e"/>
-                </svg>
+
+    <div class="app-shell">
+        
+        <div id="bazar" class="page active">
+            <div class="header-ui">
+                <div class="flag-pill">
+                    <span style="font-size: 12px;">🇷🇺</span>
+                    <span style="color: white; font-weight: bold;">&</span>
+                    <span style="font-size: 12px;">🇹🇲</span>
+                </div>
+                <h3 style="margin:0; color: white;">Bazar Nyrhy</h3>
             </div>
+
+            <div class="glass-card">
+                <div style="display: flex; gap: 5px; margin-bottom: 20px;">
+                    <input type="number" id="rUSD" value="19.50" oninput="calc('TMT')" style="width:33%; padding:8px; border-radius:10px; border:1px solid #ddd; text-align:center; font-weight:bold;">
+                    <input type="number" id="rRUB" value="0.21" oninput="calc('TMT')" style="width:33%; padding:8px; border-radius:10px; border:1px solid #ddd; text-align:center; font-weight:bold;">
+                    <input type="number" id="rTRY" value="0.65" oninput="calc('TMT')" style="width:33%; padding:8px; border-radius:10px; border:1px solid #ddd; text-align:center; font-weight:bold;">
+                </div>
+
+                <div class="input-box">
+                    <label>🇷🇺 RUBL (₽)</label>
+                    <input type="number" id="iRUB" placeholder="0" oninput="calc('RUB')">
+                </div>
+                <div class="input-box" style="border-color: var(--primary); background: #f0fdf4;">
+                    <label style="color: var(--primary);">🇹🇲 MANAT (TMT)</label>
+                    <input type="number" id="iTMT" placeholder="0" oninput="calc('TMT')">
+                </div>
+                <div class="input-box">
+                    <label>🇺🇸 DOLLAR ($)</label>
+                    <input type="number" id="iUSD" placeholder="0" oninput="calc('USD')">
+                </div>
+            </div>
+        </div>
+
+        <div id="media" class="page">
+            <h2 style="color: white; text-align: center; margin-bottom: 25px;">Möhüm Wakalar</h2>
             
-            <div class="vs-text">&</div>
+            <div class="news-card">
+                <div class="news-content">
+                    <span class="news-tag">DÜNÝÄ</span>
+                    <h3 id="t1">Tehnologiýa dünýäsinde täze döwür başlaýar.</h3>
+                    <p id="n1" style="color: #64748b; font-size: 14px;">Emeli intellekt indi türkmen dilini hem has takyk öwrenip başlady. Bu bolsa bilim pudagynda uly täzelikdir.</p>
+                    <button class="audio-btn" onclick="speak('n1')"><span>🔊</span> Diňle</button>
+                </div>
+            </div>
 
-            <div class="flag">
-                <svg viewBox="0 0 30 20">
-                    <rect width="30" height="20" fill="#00732f"/>
-                    <rect width="5" height="20" x="3" fill="#cc1d2a"/>
-                    <circle cx="12" cy="6" r="4" fill="#fff"/>
-                    <circle cx="13.5" cy="6" r="4" fill="#00732f"/>
-                    <path d="M12,3.5l.4,1.2h1.2l-1,.8.4,1.2-1-.8-1,.8.4-1.2-1-.8h1.2Z" fill="#fff"/>
-                </svg>
+            <div class="news-card">
+                <div class="news-content">
+                    <span class="news-tag" style="background: #38bdf8;">SPORT</span>
+                    <h3 id="t2">Türkmen türgenleri halkara ýaryşlarda altyn medal gazandylar.</h3>
+                    <p id="n2" style="color: #64748b; font-size: 14px;">Ýeňil atletika boýunça geçirilen ýaryşda biziň ýigitlerimiz iň ýokary netijeleri görkezdiler.</p>
+                    <button class="audio-btn" style="background: #10b981;" onclick="speak('n2')"><span>🔊</span> Diňle</button>
+                </div>
             </div>
         </div>
 
-        <h2>Bazar Nyrhy</h2>
-
-        <div class="admin-panel">
-            <div><label>USD Kurs</label><input type="number" id="rUSD" value="19.50" step="0.1" oninput="calc('TMT')"></div>
-            <div><label>RUB Kurs</label><input type="number" id="rRUB" value="0.21" step="0.01" oninput="calc('TMT')"></div>
-            <div><label>TRY Kurs</label><input type="number" id="rTRY" value="0.65" step="0.01" oninput="calc('TMT')"></div>
+        <div id="profile" class="page">
+            <div class="glass-card" style="text-align: center;">
+                <img src="me.jpg" style="width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--primary); margin-bottom: 15px;">
+                <h2 style="margin: 0;">Meylis</h2>
+                <p style="color: #64748b;">Full-Stack Developer</p>
+                <a href="https://wa.me/79509458986" style="text-decoration: none; display: block; background: #25D366; color: white; padding: 15px; border-radius: 15px; font-weight: bold; margin-top: 20px;">WhatsApp-da Yaz</a>
+            </div>
         </div>
 
-        <div class="currency-box">
-            <label>🇷🇺 RUBL (₽)</label>
-            <input type="number" id="iRUB" placeholder="0" oninput="calc('RUB')">
+        <div class="nav-bar">
+            <div class="nav-item active" onclick="showPage('bazar', this)">
+                <span class="nav-icon">📊</span>
+                <span>Bazar</span>
+            </div>
+            <div class="nav-item" onclick="showPage('media', this)">
+                <span class="nav-icon">📰</span>
+                <span>Media</span>
+            </div>
+            <div class="nav-item" onclick="showPage('profile', this)">
+                <span class="nav-icon">👤</span>
+                <span>Profil</span>
+            </div>
         </div>
 
-        <div class="currency-box" style="background: #f0fdf4; border-color: #10b981;">
-            <label style="color: #10b981;">🇹🇲 MANAT (TMT)</label>
-            <input type="number" id="iTMT" placeholder="0" oninput="calc('TMT')">
-        </div>
-
-        <div class="currency-box">
-            <label>🇺🇸 DOLLAR ($)</label>
-            <input type="number" id="iUSD" placeholder="0" oninput="calc('USD')">
-        </div>
-
-        <div class="currency-box">
-            <label>🇹🇷 LIRA (₺)</label>
-            <input type="number" id="iTRY" placeholder="0" oninput="calc('TRY')">
-        </div>
-
-        <a href="https://wa.me/79XXXXXXXXX" class="btn-wa">Habarlaşmak</a>
     </div>
 
     <script>
+        // Sahypa çalşyjy
+        function showPage(pageId, element) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            element.classList.add('active');
+            
+            window.scrollTo(0, 0);
+        }
+
+        // Sesli okama
+        function speak(id) {
+            const text = document.getElementById(id).innerText;
+            const synth = window.speechSynthesis;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'tr-TR'; 
+            synth.speak(utterance);
+        }
+
+        // Hasaplama (Market Logic)
         function calc(type) {
             const rUSD = parseFloat(document.getElementById('rUSD').value) || 0;
             const rRUB = parseFloat(document.getElementById('rRUB').value) || 0;
             const rTRY = parseFloat(document.getElementById('rTRY').value) || 0;
-            
             const iUSD = document.getElementById('iUSD'), iRUB = document.getElementById('iRUB');
-            const iTMT = document.getElementById('iTMT'), iTRY = document.getElementById('iTRY');
+            const iTMT = document.getElementById('iTMT');
 
             let tmt = 0;
             if(type === 'TMT') tmt = parseFloat(iTMT.value) || 0;
             else if(type === 'USD') tmt = (parseFloat(iUSD.value) || 0) * rUSD;
             else if(type === 'RUB') tmt = (parseFloat(iRUB.value) || 0) * rRUB;
-            else if(type === 'TRY') tmt = (parseFloat(iTRY.value) || 0) * rTRY;
 
             if(type !== 'TMT') iTMT.value = tmt ? tmt.toFixed(2) : "";
             if(type !== 'USD') iUSD.value = tmt ? (tmt / rUSD).toFixed(2) : "";
             if(type !== 'RUB') iRUB.value = tmt ? (tmt / rRUB).toFixed(2) : "";
-            if(type !== 'TRY') iTRY.value = tmt ? (tmt / rTRY).toFixed(2) : "";
         }
     </script>
 </body>
